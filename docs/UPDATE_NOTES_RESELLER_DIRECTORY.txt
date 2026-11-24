@@ -1,0 +1,22 @@
+EH GAMESHOP — RESELLER DIRECTORY / AUTO-DELIVERY CORRECTIONS
+
+Included corrections:
+1. Add Reseller now lists only customers with a verified, paid, or completed non-reseller purchase. Existing resellers, test orders, rejected orders, cancelled orders, and unpaid orders are excluded.
+2. Each eligible customer is shown in a Rich Message table with the name/details on the left and an ADD RESELLER button on the right.
+3. Reseller Directory is a Rich Message table. Each reseller row shows account details plus two embedded rectangular action buttons on the right: ACTIVE/INACTIVE and CREDIT ON/CREDIT OFF.
+4. Active and credit buttons use green for enabled and red for disabled. Clicking a button persists the actual reseller record and edits the same Rich Message.
+5. Inactive resellers are blocked from reseller ordering. Credit OFF disables credit orders.
+6. Reseller Telegram ordering no longer asks for customer Telegram UID, customer name, or SELF. Reseller orders are owned by the reseller and credentials are delivered to that reseller's own Telegram account.
+7. Auto-delivery now considers already-created free profiles even when the account has reached its maximum profile-slot count. This fixes the available Crunchyroll profile allocation case.
+8. Existing Mini App, stock/profile management, reports, order search, support, MongoDB integration, and existing package configuration are retained from the source project.
+
+DATA SAFETY:
+- This update archive intentionally does not contain data.json, MongoDB data, .env, BOT_TOKEN, payment secrets, or other private credentials.
+- Do not reset or delete data.json or MongoDB records during installation.
+- Existing orders, products, stock, profiles, balances, resellers, and customer records must be preserved.
+
+VALIDATION:
+- npm run check: passed.
+- npm test: 81 tests passed.
+- Mini App inline JavaScript syntax: passed.
+- Live Telegram Rich Message rendering and live Telegram delivery were not tested from this local build environment; deploy and verify in the Telegram bot.

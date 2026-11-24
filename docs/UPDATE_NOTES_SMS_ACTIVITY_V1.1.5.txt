@@ -1,0 +1,42 @@
+EH GAMESHOP — SMS ACTIVITY WEBHOOK / AUTO VERIFICATION v1.1.5
+
+Implemented
+-----------
+1. Added POST /webhook/sms-activity.
+2. Requires Authorization: Bearer <SMS_WEBHOOK_SECRET>; compares tokens in constant time.
+3. Accepts the SMS Activity JSON fields: from, text, sentStamp, receivedStamp, sim.
+4. Added a conservative bKash parser for received-payment wording, amount, TrxID and payer phone.
+5. Auto-verification is limited to one exact pending bKash customer order OR one exact pending bKash reseller due-clearance request with matching Transaction ID and amount.
+6. Customer order payment status and order status update only after exact matching; reseller due ledger is settled only after exact matching.
+7. Duplicate payloads and already-verified/settled Transaction IDs are blocked.
+8. Outgoing SMS, unrecognized source, unknown transaction, amount mismatch and ambiguous matches do not auto-verify; applicable incoming messages are stored in the Admin Manual Review queue and notify Admins.
+9. Added Admin-only GET /api/admin/sms-activity/events and POST /api/admin/sms-activity/events/:id/resolve for manual resolution.
+10. Manual resolution requires a matching pending order/due request, exact Transaction ID and exact amount.
+
+SMS Activity configuration (based on the user's supplied settings screenshot)
+----------------------------------------------------------------------------
+JSON template:
+{
+  "from": "%from%",
+  "text": "%text%",
+  "sentStamp": "%sentStamp%",
+  "receivedStamp": "%receivedStamp%",
+  "sim": "%sim%"
+}
+
+HTTP Header:
+Authorization: Bearer <same value as Replit Secret SMS_WEBHOOK_SECRET>
+Content-Type: application/json
+
+Webhook URL after this build is deployed:
+https://eh-gameshop-selling-bot--ehsan123habib.replit.app/webhook/sms-activity
+
+Important parser limitation
+---------------------------
+The actual bKash SMS body and actual value of SMS Activity's %from% variable have not yet been confirmed from a real incoming bKash SMS. Therefore the parser is conservative and may route a valid SMS to Manual Review rather than auto-verify. The optional BKASH_SMS_SENDER Replit Secret can be set to the exact source label/number after a real sample is checked. Do not treat synthetic parser tests as proof of the user's real SMS format.
+
+Validation
+----------
+npm run check: passed.
+npm test: see build test count.
+No production webhook request or live bKash transaction was tested in this offline build.

@@ -1,0 +1,67 @@
+EH GAMESHOP — LOCKED UI STANDARDS
+Version: 1.0
+Status: LOCKED — USER APPROVED
+Scope: EH Gameshop project areas and interfaces where the requirements are technically applicable.
+
+PURPOSE
+This document records the user's approved, project-wide UI requirements. Use it as a reference before designing or implementing relevant EH Gameshop interfaces.
+
+RULE 01 — RICH MESSAGE FIRST
+- Prefer Telegram Rich Messages / Rich Table Format wherever supported and suitable.
+- Use Rich Message-native layout, headings, tables, status indicators, and buttons wherever possible.
+- Keep interface buttons inside the relevant Rich Message.
+- Avoid ordinary/plain Telegram messages for interface screens when Rich Message can provide the same functionality.
+- If Rich Message is unsupported or unsuitable for a particular screen or action, explain the exact technical limitation before implementation and propose the closest alternative.
+- Do not silently replace an applicable Rich Message interface with an ordinary message.
+
+RULE 02 — IN-PLACE NAVIGATION
+Definition: In-place Navigation means changing the content/preview of the existing Telegram message instead of sending a new message for the next screen.
+- When a user clicks a navigation button, edit the same message to show the next screen whenever supported.
+- Use this for applicable directories, profiles, details, submenus, management screens, and previews.
+- Provide a Back button on applicable subsequent screens.
+- Back should restore the previous screen in the same message.
+- Do not send a separate message below for ordinary screen navigation when editing the existing message is supported.
+- Use a new message only when a genuinely separate notification/message is needed or the platform does not support editing that message for the required operation. Explain any such exception first.
+
+RULE 03 — LIVE STATUS SYNCHRONIZATION
+Definition: Live Status Synchronization means updating relevant previously sent previews when the underlying status changes, without requiring the user to reopen or refresh the preview.
+- When a reseller, customer, order, product, payment, or other displayed status changes, update all relevant previously sent messages that are still applicable and editable by the bot.
+- Example: if a reseller's status changes from ACTIVE to INACTIVE, their previously sent greeting/preview should also show INACTIVE as soon as possible.
+- Apply the same principle to Credit ON/OFF and other displayed status values.
+- Track relevant Telegram chat_id and message_id references where appropriate.
+- Keep displayed status consistent with the latest saved application/database state.
+- Implement appropriate error handling and retry behavior where feasible.
+- Before implementation, verify the actual Telegram Bot API and Rich Message capabilities for editing existing Rich Messages and synchronizing multiple messages.
+- Do not promise updates that the API/client does not support. Explain exact limitations and propose the closest reliable alternative before proceeding.
+
+SCOPE
+Apply these standards across all applicable EH Gameshop areas, including:
+- Admin Panel
+- Reseller System and Reseller Directory
+- Reseller Greeting and Profile
+- Customer Panel
+- Product and Category Management
+- Order Management and Order Details
+- Payment Verification
+- Reports
+- Account Details
+- Other applicable Rich Message interfaces
+
+APPROVAL AND CHANGE CONTROL
+- These three standards are explicitly approved and LOCKED by the user.
+- Do not change, weaken, or remove them without explaining the reason and obtaining the user's permission.
+- Do not mark other ideas or decisions as LOCKED unless the user explicitly approves them.
+- Keep pending and experimental ideas separate from approved/locked requirements.
+- If a new request conflicts with a locked rule, point out the conflict and ask how the user wants to proceed.
+
+IMPLEMENTATION CHECKLIST
+Before implementing a relevant screen:
+1. Can this screen use Telegram Rich Message / Rich Table Format?
+2. Can navigation edit the existing message instead of sending a new one?
+3. Is there a Back action that restores the previous preview?
+4. If a displayed status changes, which previously sent messages must be synchronized?
+5. Have actual API limitations been checked and explained?
+6. Have tests verified message editing, Back navigation, status synchronization, and failure handling?
+
+CORE PRINCIPLE
+RICH MESSAGE FIRST + IN-PLACE NAVIGATION + LIVE STATUS SYNCHRONIZATION.

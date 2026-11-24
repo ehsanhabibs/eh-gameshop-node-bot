@@ -1,0 +1,39 @@
+EH GAMESHOP — UPDATE NOTES v1.2.6
+==================================
+Base: EH_Gameshop_Telegram_Final_v1.2.5.zip
+Scope: Profile Management action spacing, separate Delivery Preview design, and primary Stock Center compact account table.
+
+1. PROFILE MANAGEMENT ACTION ALIGNMENT
+- Edit and Delete actions now occupy separate vertically aligned table rows for each profile.
+- Profile and expiry cells span both action rows so the action column stays aligned.
+- Enabled compact table spacing to reduce unnecessary cell padding.
+- This prevents the two native Rich Message buttons from colliding inside a narrow cell.
+- Existing edit/delete callbacks, delete safety checks, profile data, and history are unchanged.
+
+2. DELIVERY PREVIEW — NEW SEPARATE DESIGN
+- Kept the original Customer Delivery and Reseller Delivery templates unchanged.
+- Added separate Customer Delivery · New Design and Reseller Delivery · New Design options in Preview Studio.
+- New design includes the EH Gameshop tagline quote block, underlined product title, Account Information heading with Copy Info on the same line, and a compact account details table.
+- Copy Info includes the product, email, password, profile, PIN and expiry with their emoji/symbol labels.
+- TAP TO VIEW expands Order History and a connected vertical timeline in the same Rich Message; HIDE DETAILS collapses it again.
+- LIVE UPDATE uses a green native Rich Message action button with a refresh symbol. The Preview Studio action displays sample status only.
+- The new template is a separate Preview Studio design. Existing real customer/reseller delivery sending continues to use the original templates until a separate approval is given.
+
+3. STOCK CENTER — PRIMARY CATEGORY ACCOUNT LIST
+- The category account list now uses the compact account table as its main screen.
+- Columns: Stock ID, Email, Password, Expiry, Status and Expand.
+- Email opens the existing full Stock Account Rich Message.
+- Each row's arrow expands only that stock account's Profile Table in-place.
+- Removed the separate VIEW action from this primary account list.
+- Expiry now uses DD/MM/YYYY, preserving Date → Month → Year.
+- Existing stock account detail view, profile management actions, lifecycle checks and stock records are preserved.
+
+4. PRESERVATION
+- Preserved all v1.2.5 business logic, reseller auto delivery, FEFO stock allocation, MongoDB storage, expiry reminders, stock lifecycle, order flows, and existing Mini App design.
+- No production database, Replit Secrets, .env, customer data or stock data was included or reset.
+- No live Telegram API rendering or Replit deployment was performed in this offline build.
+
+5. VALIDATION
+- Node syntax checks and embedded Mini App JavaScript checks were run.
+- npm run check: passed.
+- npm test: 192/192 passed.

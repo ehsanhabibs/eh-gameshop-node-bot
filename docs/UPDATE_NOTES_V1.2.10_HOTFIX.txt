@@ -1,0 +1,45 @@
+EH GAMESHOP — v1.2.10 HOTFIX
+================================
+
+BASE
+- EHGS-v1.2.9(1).zip
+- This is a focused corrective patch. Existing Mini App theme, business logic, product catalogue, MongoDB schema/data, reseller pricing, order history, stock records, and approved Rich Message templates are preserved.
+
+FIXES APPLIED
+1. STOCK CENTER RUNTIME ERROR
+- Added the missing editStockRichScreen() implementation.
+- The Stock Category and Compact Preview callback actions no longer call an undefined function.
+- Existing Rich Messages are edited in-place first.
+- A replacement Rich Message is sent only when Telegram reports that the original message cannot be edited.
+- Transient network/API failures do not trigger duplicate replacement screens.
+- If Rich Message sending is unavailable, the relevant stock list has a standard Telegram keyboard fallback.
+
+2. STOCK CATEGORY IN-PLACE NAVIGATION
+- View Stock now edits the current Stock Center Rich Message instead of always sending a second message.
+- Stock Category, Compact Preview, Expand/Collapse, and Stock Account navigation retain the existing Rich Table structure and Back actions.
+
+3. RESELLER SUPPORT ACTION
+- Added SUPPORT inside the reseller Rich Message home menu, matching the persistent five-item Reply Keyboard.
+- The Support callback opens a Rich Message explanation and then requests the Order ID in a separate chat message.
+- This separate text prompt is necessary because Telegram Rich Message buttons cannot collect arbitrary free text.
+
+4. RAILWAY CONFIGURATION EXAMPLE
+- Updated .env.example to show the Railway Public HTTPS Domain format for WEB_APP_URL, while noting that a Replit public URL is also supported.
+- No real domain, token, database URI, or secret value was added.
+
+PRESERVED
+- Premium Light Mini App styling in the v1.2.9 source is unchanged. No theme redesign was applied.
+- Existing Delivery Preview templates, tagline quote block, COPY INFO, LIVE UPDATE, timeline, Stock table columns, profile history, expiry handling, reports, reseller pricing and order flow remain unchanged.
+- Locked standards remain: Rich Message First, In-place Navigation, and Live Status Synchronization.
+
+VALIDATION
+- Added automated tests for in-place Rich Message edits, uneditable-message replacement, transient failure behavior, standard fallback, Stock callback wiring, and Reseller Support callback.
+- `npm run check`: PASS (JavaScript syntax and both Mini App inline JavaScript checks).
+- `npm test`: PASS (207 tests, 0 failures).
+- ZIP integrity: verified after packaging.
+
+NOT PERFORMED / LIMITATIONS
+- No Railway deployment, Republish, live Telegram API send, or real-device visual test was performed.
+- A source ZIP cannot supply the actual WEB_APP_URL. The Railway service still needs a generated Public HTTPS Domain and WEB_APP_URL variable before the Mini App launcher can work.
+- Live Telegram client rendering, native button colours, and actual Rich Message compatibility must be verified after deployment.
+- No production MongoDB data, customer data, stock, orders, balances, bot token, or .env file was included, reset, or modified.

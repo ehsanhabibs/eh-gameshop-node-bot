@@ -1,0 +1,15 @@
+EH GAMESHOP — MINI APP PRODUCT PLAN TABLE & ORDER FLOW v1.1.8
+
+1. Shop product cards now open a Product Details screen instead of jumping directly to the purchase form.
+2. The Product Details table shows Package / Plan, Duration, Details, Price and Action.
+3. Each plan row has an embedded Order Now button.
+4. Customer subscriptions continue to the quantity/package confirmation form, then create the order and use the existing My Orders payment submission flow.
+5. Free Fire Top-up and VPN selections continue to their dedicated UID/duration/provider flows.
+6. Reseller product details use reseller-tier prices and Order Now continues to the existing reseller purchase form.
+7. Subscription quantity has compact +/- controls (1–10), and the initial total correctly reflects the selected plan.
+8. Product Details, Subscription Purchase and Reseller Purchase screens register restore callbacks for Back navigation.
+
+Note: This is the Mini App's native HTML plan table, not a Telegram Bot API Rich Message. Customer checkout remains in the Mini App, consistent with the customer-facing Mini App direction.
+
+Validation: npm run check passed; npm test passed (140/140).
+No production Telegram live rendering test was run in this offline build.

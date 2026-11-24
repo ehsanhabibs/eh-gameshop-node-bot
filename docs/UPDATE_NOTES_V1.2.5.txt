@@ -1,0 +1,67 @@
+EH GAMESHOP — UPDATE NOTES v1.2.5
+==================================
+Base: EH_Gameshop_Telegram_Final_v1.2.4.zip
+Scope: Consolidated corrections from prior EH Gameshop project discussions and the v1.2.4 source review.
+
+1. PRESERVED v1.2.4 FEATURES
+- Reseller Auto Delivery, FEFO stock allocation, reservation/release handling and customer-validity start after successful delivery.
+- Admin stock/reminder-account expiry reminders at 7, 3, 1 days and on expiry date.
+- Reseller four-product shop, YouTube Family Invite quantity selector (default 1, range 1–10), per-email request tracking, status history and Hold status.
+- Individual YouTube request continues to collect the email only. Passwords and backup codes are not collected in ordinary Telegram chat because Telegram chat history is not an encrypted credential vault.
+- Existing Rich Message First, In-place Navigation, Live Status Synchronization, order reports, reseller directory, due ledger and Mini App files are retained.
+
+2. ACCOUNT UPDATE NOTICE — RECIPIENT VERIFICATION FIX
+- The selected Telegram recipient ID is now passed into accountUpdateNoticeHtml() before the message is sent.
+- The same recipient reference is used when previously sent account-update messages are synchronized.
+- If the profile is not actually assigned to the intended Telegram ID, no account credentials are sent; Admin sees a clear assignment-check warning instead.
+
+3. VIEW STOCK — READ-ONLY COMPACT TABLE PREVIEW
+- Added a separate COMPACT TABLE PREVIEW entry from the category account list. The existing live Stock Account table remains unchanged.
+- Preview columns: Stock ID, Email, Password, Original Expiry (DD-MM), Status and Expand.
+- Email is a link to the existing full Stock Account details Rich Message.
+- Expand edits the same message and shows only that stock row's Profile Table below it; collapse hides that table again.
+- Status logic: EXPIRED when the Original Account Expiry has passed; SOLD when all profile slots are occupied; AVAILABLE when at least one slot is free.
+- Added overall inventory counts: total stock accounts, fully occupied accounts, occupied profile slots and available slots.
+- This is a read-only preview and does not replace the existing live table pending user approval.
+
+4. LINK CUSTOMER / ADD PROFILE
+- The successful completion Rich Message now immediately shows a PROFILE PREVIEW with Stock ID, Profile Name, PIN, Customer Name, Customer Expiry and Extra Days.
+- Added/renamed the action to ADD PROFILE & LINK CUSTOMER in the same flow.
+- ADD ANOTHER PROFILE remains available after each successful link. Existing profile records are not cleared.
+
+5. RENEWAL VS NEW SUBSCRIPTION CYCLE
+- RENEW SUBSCRIPTION now extends Original Account Expiry on the same Stock ID.
+- Existing profiles, customer links, orders and history are preserved. Expiry history is appended, Extra Days are recalculated, reminder markers reset, and linked order snapshots/messages are synchronized.
+- CREATE NEW SUBSCRIPTION CYCLE is a separate action. It creates a new Stock ID only after the previous cycle is expired/archived and no customer subscription is still running.
+- The previous cycle remains archived with its profiles and history. A newer cycle cannot be branched by extending an old cycle that already has a next-cycle link.
+
+6. CRUNCHYROLL PURCHASE EMAIL / ORDER TRACKING
+- Added per-cycle Purchase Email Label (short identifier only; no full purchase email is required) and Crunchyroll Order ID fields to Stock Details.
+- Each field can be edited independently.
+- Changes within a cycle are audit-recorded (previous value, new value and timestamp).
+- VIEW CYCLE HISTORY walks the previous/next Stock cycle links and displays each cycle's label and Order ID. A new cycle does not overwrite the old cycle record.
+
+7. EXPIRED / ARCHIVED MANAGEMENT
+- Added an Admin Stock Lifecycle screen separating Active, Expired and Archived accounts.
+- Each row opens the existing Stock Account Rich Message.
+- Expired/Archived stocks cannot accept new profiles. Profile Add is disabled in the detail view for unavailable stocks.
+- Extending the current expired stock's Original Expiry can reopen that same Stock ID when no newer cycle already exists.
+
+8. BUTTON / ICON REFINEMENTS
+- Added a Telegram native button-style preview for default client style, primary, success, danger and link.
+- Reseller category buttons now use nearest supported styles: Amazon Prime primary, Crunchyroll link, YouTube Premium danger, VPN success.
+- Updated Amazon icon to package (📦), retained Crunchyroll popcorn (🍿), YouTube play (▶️), VPN shield (🛡️).
+- ORDER NOW uses a shopping cart (🛒). CONFIRM ORDER no longer has the extra checkmark.
+- Native Telegram button widths and colors remain client/API controlled; arbitrary HEX colors, gradients, hover colors, custom fixed dimensions and true pill button shapes are not available in Telegram Rich Messages.
+
+9. VALIDATION
+- npm run check: passed.
+- npm test: 189/189 passed.
+- ZIP archive integrity: checked after packaging.
+- No production MongoDB writes, live Telegram sends, Replit deployment or business-data reset were performed in this workspace.
+- No .env, production data, PrivateUploads, node_modules or .git directory is included in the deliverables.
+
+10. DEPLOYMENT NOTE
+- Deploy by replacing the Replit project files with this build and using the existing Replit Republish workflow.
+- Keep existing Replit Secrets and MongoDB data unchanged.
+- Live Telegram rendering, button tint, callback flow, and real account-notice delivery must be verified after Republish with an authorized Admin test.

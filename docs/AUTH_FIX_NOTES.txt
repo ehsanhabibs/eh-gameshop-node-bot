@@ -1,0 +1,14 @@
+EH Gameshop Mini App authentication fix
+
+Changes:
+- The Mini App now reads Telegram's signed initData fresh for every API request instead of capturing it only once during page startup.
+- If opened directly in Chrome or another normal browser without Telegram WebApp login data, it displays a clear instruction to open the Mini App from the EH Gameshop Telegram bot.
+- No authentication bypass was added. Admin and customer APIs remain protected by Telegram's signed WebApp initData.
+
+Configuration:
+WEB_APP_URL must remain:
+https://eh-gameshop-selling-bot--ehsan123habib.replit.app/portal.html
+
+Deployment:
+- Keep only the Replit Deployment running the Telegram polling bot.
+- Do not run `npm start` in Shell while Deployment is active; that starts a second polling process and can trigger Telegram 409 Conflict.

@@ -1,0 +1,125 @@
+{
+  "templates": {
+    "customer_delivery": {
+      "format": "rich_html",
+      "html": "<h2>EH GAMESHOP</h2><p>শতভাগ বিশ্বস্ততার প্রতিশ্রুতি</p><h3>{{product}} — {{package}}</h3><p>ORDER ID: <code>{{orderId}}</code></p><table bordered compact><caption>ACCOUNT DETAILS</caption><tr><th>EMAIL / ID</th><td><code>{{email}}</code></td></tr><tr><th>PASSWORD</th><td><code>{{password}}</code></td></tr><tr><th>PROFILE</th><td><b>{{profile}}</b></td></tr><tr><th>PIN</th><td><code>{{pin}}</code></td></tr><tr><th>CUSTOMER EXPIRY</th><td><b>{{customerExpiry}}</b></td></tr><tr><th>ORDER STATUS</th><td>{{orderStatus}}</td></tr><tr><th>PAYMENT STATUS</th><td>{{paymentStatus}}</td></tr></table><h3>ORDER TIMELINE</h3>{{timelineHtml}}<tg-button-row><tg-button type=\"copy_text\" text=\"{{copyText}}\">📋 COPY INFO</tg-button></tg-button-row><tg-button-row><tg-button type=\"callback_data\" style=\"primary\" data=\"{{callbackPrefix}}_more:{{orderId}}:{{itemId}}\">TAP TO VIEW</tg-button></tg-button-row><tg-button-row><tg-button type=\"callback_data\" style=\"success\" data=\"{{callbackPrefix}}_live:{{orderId}}:{{itemId}}\">🟢 LIVE UPDATE</tg-button></tg-button-row>"
+    },
+    "reseller_delivery": {
+      "format": "rich_html",
+      "html": "<h2>EH GAMESHOP</h2><p>শতভাগ বিশ্বস্ততার প্রতিশ্রুতি</p><h3>{{product}} — {{package}}</h3><p>ORDER ID: <code>{{orderId}}</code></p><table bordered compact><caption>ACCOUNT DETAILS</caption><tr><th>EMAIL / ID</th><td><code>{{email}}</code></td></tr><tr><th>PASSWORD</th><td><code>{{password}}</code></td></tr><tr><th>PROFILE</th><td><b>{{profile}}</b></td></tr><tr><th>PIN</th><td><code>{{pin}}</code></td></tr><tr><th>CUSTOMER EXPIRY</th><td><b>{{customerExpiry}}</b></td></tr><tr><th>ORDER STATUS</th><td>{{orderStatus}}</td></tr><tr><th>PAYMENT STATUS</th><td>{{paymentStatus}}</td></tr></table><h3>ORDER TIMELINE</h3>{{timelineHtml}}<tg-button-row><tg-button type=\"copy_text\" text=\"{{copyText}}\">📋 COPY INFO</tg-button></tg-button-row><tg-button-row><tg-button type=\"callback_data\" style=\"primary\" data=\"{{callbackPrefix}}_more:{{orderId}}:{{itemId}}\">TAP TO VIEW</tg-button></tg-button-row><tg-button-row><tg-button type=\"callback_data\" style=\"success\" data=\"{{callbackPrefix}}_live:{{orderId}}:{{itemId}}\">🟢 LIVE UPDATE</tg-button></tg-button-row>"
+    },
+    "reminder": {
+      "parse_mode": "HTML",
+      "text": "🔔 <b>ACCOUNT EXPIRY REMINDER · {{kind}}</b>\n\n<b>{{product}}</b>\nStock ID: <code>{{stockId}}</code>\nEmail: <code>{{email}}</code>\nPassword: <code>{{password}}</code>\nOriginal Expiry: <b>{{originalExpiry}}</b>\n\n<b>PROFILES</b>\n{{profiles}}\n\n<i>Admin reminder · EH Gameshop</i>",
+      "buttons": []
+    },
+    "stock": {
+      "format": "rich_html",
+      "html": "<h2>📦 STOCK PREVIEW</h2><p><b>{{product}}</b></p><table bordered compact><tr><th>Stock ID</th><td><code>{{stockId}}</code></td></tr><tr><th>Email / ID</th><td><code>{{email}}</code></td></tr><tr><th>Password</th><td><code>{{password}}</code></td></tr><tr><th>Original Expiry</th><td>{{originalExpiry}}</td></tr><tr><th>Profiles Added</th><td>{{profilesAdded}}</td></tr><tr><th>Available Profiles</th><td>{{availableProfiles}}</td></tr><tr><th>Status</th><td>{{status}}</td></tr><tr><th>Price</th><td>৳{{price}}</td></tr></table>",
+      "buttons": []
+    },
+    "stock_list_original": {
+      "format": "rich_html",
+      "html": "<h2>📦 STOCK MANAGEMENT · ORIGINAL</h2><p><b>{{product}}</b> · {{stockId}}</p><table bordered compact><tr><th>Profile Name</th><th>Customer Name</th><th>Expiry Date</th><th>Extra Days</th><th>Actions</th></tr><tr><td>{{profile1}}</td><td>{{customer1}}</td><td>{{expiry1}}</td><td>{{extra1}}</td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile1\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile1\">DELETE</tg-button></td></tr><tr><td>{{profile2}}</td><td>{{customer2}}</td><td>{{expiry2}}</td><td>{{extra2}}</td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile2\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile2\">DELETE</tg-button></td></tr><tr><td>{{profile3}}</td><td>{{customer3}}</td><td>{{expiry3}}</td><td>{{extra3}}</td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile3\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile3\">DELETE</tg-button></td></tr></table><p><i>Admin-only stock calculation preview.</i></p>",
+      "buttons": []
+    },
+    "stock_list_compact": {
+      "format": "rich_html",
+      "html": "<h2>📦 STOCK MANAGEMENT · COMPACT</h2><p><b>{{product}}</b> · {{stockId}}</p><table bordered compact><tr><th>PROFILE / CUSTOMER</th><th>EXPIRY / EXTRA</th><th>ACTIONS</th></tr><tr><td><b>{{profile1}}</b><br/>{{customer1}}</td><td>{{expiry1}}<br/><i>{{extra1}}</i></td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile1\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile1\">DELETE</tg-button></td></tr><tr><td><b>{{profile2}}</b><br/>{{customer2}}</td><td>{{expiry2}}<br/><i>{{extra2}}</i></td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile2\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile2\">DELETE</tg-button></td></tr><tr><td><b>{{profile3}}</b><br/>{{customer3}}</td><td>{{expiry3}}<br/><i>{{extra3}}</i></td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile3\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile3\">DELETE</tg-button></td></tr></table><p><i>Admin-only stock calculation preview.</i></p>",
+      "buttons": []
+    },
+    "stock_list_expanded": {
+      "format": "rich_html",
+      "html": "<h2>📦 STOCK MANAGEMENT · EXPANDED ROWS</h2><p><b>{{product}}</b> · {{stockId}}</p><table bordered compact><tr><th>PROFILE</th><th>CUSTOMER</th><th>EXPIRY</th></tr><tr><td>{{profile1}}</td><td>{{customer1}}</td><td>{{expiry1}}</td></tr><tr><td colspan=\"3\">Extra Days: <b>{{extra1}}</b> · Status: {{status1}} · Actions: <tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile1\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile1\">DELETE</tg-button></td></tr><tr><td>{{profile2}}</td><td>{{customer2}}</td><td>{{expiry2}}</td></tr><tr><td colspan=\"3\">Extra Days: <b>{{extra2}}</b> · Status: {{status2}} · Actions: <tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile2\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile2\">DELETE</tg-button></td></tr><tr><td>{{profile3}}</td><td>{{customer3}}</td><td>{{expiry3}}</td></tr><tr><td colspan=\"3\">Extra Days: <b>{{extra3}}</b> · Status: {{status3}} · Actions: <tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile3\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile3\">DELETE</tg-button></td></tr></table>",
+      "buttons": []
+    },
+    "stock_list_hybrid": {
+      "format": "rich_html",
+      "html": "<h2>📦 STOCK MANAGEMENT · HYBRID</h2><p><b>{{product}}</b></p><table bordered compact><tr><th>STOCK ID</th><td><code>{{stockId}}</code></td></tr><tr><th>EMAIL / ID</th><td><code>{{email}}</code></td></tr><tr><th>PASSWORD</th><td><code>{{password}}</code></td></tr><tr><th>ACCOUNT EXPIRY</th><td><b>{{originalExpiry}}</b></td></tr><tr><th>STATUS</th><td>{{stockStatus}}</td></tr><tr><th>PRICE</th><td>৳{{price}}</td></tr></table><h3>PROFILE MANAGEMENT · {{profilesAdded}}</h3><table bordered compact><tr><th>SL / PROFILE</th><th>EXPIRY</th><th>ACTIONS</th></tr><tr><td><b>01. {{profile1}}</b><br/><i>{{customer1}}</i></td><td>{{expiry1}}<br/><i>{{extra1}}</i></td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile1\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile1\">DELETE</tg-button></td></tr><tr><td><b>02. {{profile2}}</b><br/><i>{{customer2}}</i></td><td>{{expiry2}}<br/><i>{{extra2}}</i></td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile2\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile2\">DELETE</tg-button></td></tr><tr><td><b>03. {{profile3}}</b><br/><i>{{customer3}}</i></td><td>{{expiry3}}<br/><i>{{extra3}}</i></td><td><tg-button type=\"callback_data\" data=\"stock_preview_action:edit:profile3\">EDIT</tg-button> <tg-button type=\"callback_data\" data=\"stock_preview_action:delete:profile3\">DELETE</tg-button></td></tr></table><p><i>One unified Stock Rich Message · Account details above, profile management below.</i></p>",
+      "buttons": []
+    },
+    "reseller_directory": {
+      "format": "rich_html",
+      "html": "<h2>🤝 EH GAMESHOP · RESELLER DIRECTORY</h2><table bordered compact><tr><th>SL</th><th>RESELLER NAME</th><th>ACTIONS</th></tr><tr><td>01</td><td><tg-button type=\"callback_data\" style=\"link\" data=\"preview_reseller_action:open\">{{resellerName}}</tg-button></td><td><tg-button type=\"callback_data\" style=\"success\" data=\"preview_reseller_action:active\">ACTIVE</tg-button> <tg-button type=\"callback_data\" style=\"danger\" data=\"preview_reseller_action:credit\">CREDIT OFF</tg-button></td></tr><tr><td>02</td><td><tg-button type=\"callback_data\" style=\"link\" data=\"preview_reseller_action:open\">{{resellerName2}}</tg-button></td><td><tg-button type=\"callback_data\" style=\"danger\" data=\"preview_reseller_action:active\">INACTIVE</tg-button> <tg-button type=\"callback_data\" style=\"success\" data=\"preview_reseller_action:credit\">CREDIT ON</tg-button></td></tr></table><p>Sample only · No real reseller record is created.</p>"
+    },
+    "reseller_profile": {
+      "format": "rich_html",
+      "html": "<table compact><tr><td align=\"center\"><b>WELCOME</b></td></tr><tr><td align=\"center\"><b>TO</b></td></tr></table><aside><b>✨ RESELLER NETWORK ✨</b></aside><table bordered compact><caption>RESELLER INFORMATION</caption><tr><th>NAME</th><td><b>{{resellerName}}</b></td></tr><tr><th>USERNAME</th><td>@{{username}}</td></tr><tr><th>RESELLER ID</th><td><code>{{resellerId}}</code></td></tr><tr><th>ACCOUNT STATUS</th><td><tg-button type=\"disabled\" style=\"success\">{{status}}</tg-button></td></tr><tr><th>CREDIT STATUS</th><td><tg-button type=\"disabled\" style=\"success\">{{creditStatus}}</tg-button></td></tr><tr><th>TIER</th><td>{{tier}}</td></tr><tr><th>JOINED</th><td>{{joinedAt}}</td></tr><tr><th>LAST SEEN</th><td>{{lastSeen}}</td></tr></table><h3>RESELLER PRIORITY PRIVILEGES</h3><blockquote><b>⚡ Priority Order Processing</b></blockquote><blockquote><b>⏱ 30-Minute Delivery Guarantee</b></blockquote><blockquote><b>🏷 Special Reseller Pricing</b></blockquote><blockquote><b>💳 Credit Purchase Facility</b></blockquote><blockquote><b>📊 Personal Order History &amp; Reports</b></blockquote>",
+      "buttons": []
+    },
+    "reseller_dashboard": {
+      "format": "rich_html",
+      "html": "<h2>🤝 RESELLER DASHBOARD</h2><p>Welcome, <b>{{resellerName}}</b> · <code>{{resellerId}}</code></p><table bordered compact><tr><th>ORDERS</th><td>{{orders}}</td></tr><tr><th>DELIVERED</th><td>{{delivered}}</td></tr><tr><th>OUTSTANDING DUE</th><td>৳{{due}}</td></tr><tr><th>ACCOUNT</th><td>{{status}}</td></tr><tr><th>CREDIT</th><td>{{creditStatus}}</td></tr></table><p>Priority handling · 30-minute delivery target</p><tg-button-row><tg-button type=\"callback_data\" data=\"preview_reseller_action:order\">MY ORDERS</tg-button><tg-button type=\"callback_data\" data=\"preview_reseller_action:due\">DUE / LEDGER</tg-button></tg-button-row>",
+      "buttons": []
+    },
+    "reseller_order": {
+      "format": "rich_html",
+      "html": "<h2>📦 RESELLER ORDER</h2><table bordered compact><tr><th>ORDER ID</th><td><code>{{orderId}}</code></td></tr><tr><th>PRODUCT</th><td>{{product}} · {{package}}</td></tr><tr><th>QUANTITY</th><td>{{quantity}}</td></tr><tr><th>TOTAL DUE</th><td>৳{{sales}}</td></tr><tr><th>STATUS</th><td>{{status}}</td></tr><tr><th>DELIVERY TARGET</th><td>30 Minutes</td></tr></table><tg-button-row><tg-button type=\"callback_data\" data=\"preview_reseller_action:live\">LIVE UPDATE</tg-button></tg-button-row>",
+      "buttons": []
+    },
+    "reseller_ledger": {
+      "format": "rich_html",
+      "html": "<h2>💳 RESELLER DUE / LEDGER</h2><table bordered compact><tr><th>DATE</th><th>DETAIL</th><th>AMOUNT</th></tr><tr><td>{{date}}</td><td>Order {{orderId}}</td><td>৳{{sales}}</td></tr><tr><td>{{date2}}</td><td>Payment received</td><td>−৳{{received}}</td></tr></table><p><b>Outstanding Due: ৳{{due}}</b></p>",
+      "buttons": []
+    },
+    "reseller_due": {
+      "format": "rich_html",
+      "html": "<h2>🧾 DUE CLEARANCE REQUEST</h2><table bordered compact><tr><th>RESELLER ID</th><td>{{resellerId}}</td></tr><tr><th>AMOUNT</th><td>৳{{sales}}</td></tr><tr><th>METHOD</th><td>{{paymentMethod}}</td></tr><tr><th>TRANSACTION ID</th><td><code>{{transactionId}}</code></td></tr><tr><th>STATUS</th><td>{{status}}</td></tr></table><p>Due changes only after Admin confirms payment.</p><tg-button-row><tg-button type=\"callback_data\" data=\"preview_reseller_action:due\">SUBMIT REQUEST</tg-button></tg-button-row>",
+      "buttons": []
+    },
+    "reseller_shop": {
+      "format": "rich_html",
+      "html": "<h2>🛍️ RESELLER SHOP</h2><p>Reseller: <b>{{resellerName}}</b> · <code>{{resellerId}}</code></p><table bordered compact><tr><th>PRODUCT</th><th>PACKAGE</th><th>PRICE</th></tr><tr><td>{{product}}</td><td>{{package}}</td><td>৳{{price}}</td></tr><tr><td>{{product2}}</td><td>{{package2}}</td><td>৳{{price2}}</td></tr></table><p>Credit: {{creditStatus}} · Tier: {{tier}}</p><tg-button-row><tg-button type=\"callback_data\" data=\"preview_reseller_action:buy\">BUY</tg-button></tg-button-row>",
+      "buttons": []
+    },
+    "reseller_support": {
+      "format": "rich_html",
+      "html": "<h2>🛟 RESELLER SUPPORT TICKET</h2><table bordered compact><tr><th>TICKET</th><td>{{ticketId}}</td></tr><tr><th>SUBJECT</th><td>{{subject}}</td></tr><tr><th>ORDER</th><td>{{orderId}}</td></tr><tr><th>STATUS</th><td>{{status}}</td></tr></table><p>{{message}}</p><tg-button-row><tg-button type=\"callback_data\" data=\"preview_reseller_action:support\">REPLY</tg-button></tg-button-row>",
+      "buttons": []
+    },
+    "reseller_profiles": {
+      "format": "rich_html",
+      "html": "<h2>🪪 RESELLER · MY PROFILES</h2><table bordered compact><tr><th>PRODUCT</th><th>PROFILE</th><th>EXPIRY</th><th>STATUS</th></tr><tr><td>{{product}}</td><td>{{profile1}}</td><td>{{expiry1}}</td><td>{{status1}}</td></tr><tr><td>{{product2}}</td><td>{{profile2}}</td><td>{{expiry2}}</td><td>{{status2}}</td></tr></table><p>Customer expiry and profile status only.</p>",
+      "buttons": []
+    },
+    "reseller_order_search": {
+      "format": "rich_html",
+      "html": "<h2>🔎 RESELLER · ORDER SEARCH</h2><table bordered compact><tr><th>ORDER ID</th><th>PRODUCT</th><th>STATUS</th><th>AMOUNT</th></tr><tr><td><code>{{orderId}}</code></td><td>{{product}}</td><td>{{status}}</td><td>৳{{sales}}</td></tr><tr><td><code>{{orderId2}}</code></td><td>{{product2}}</td><td>{{status2}}</td><td>৳{{price2}}</td></tr></table><p>Search uses only this reseller's own orders.</p>",
+      "buttons": []
+    },
+    "reseller_youtube_request": {
+      "format": "rich_html",
+      "html": "<h2>▶️ RESELLER · YOUTUBE REQUEST</h2><table bordered compact><tr><th>REQUEST</th><td>{{ticketId}}</td></tr><tr><th>TYPE</th><td>{{subject}}</td></tr><tr><th>EMAIL</th><td>{{email}}</td></tr><tr><th>STATUS</th><td>{{status}}</td></tr><tr><th>UPDATED</th><td>{{date}}</td></tr></table>",
+      "buttons": []
+    },
+    "admin_reseller_pricing": {
+      "format": "rich_html",
+      "html": "<h2>⚙️ ADMIN · RESELLER PRICING</h2><table bordered compact><tr><th>RESELLER</th><td>{{resellerName}} · {{resellerId}}</td></tr><tr><th>TIER</th><td>{{tier}}</td></tr><tr><th>PRODUCT</th><td>{{product}}</td></tr><tr><th>BASE PRICE</th><td>৳{{price}}</td></tr><tr><th>RESELLER PRICE</th><td>৳{{resellerPrice}}</td></tr><tr><th>CREDIT</th><td>{{creditStatus}}</td></tr></table><p><i>Admin-only view.</i></p>",
+      "buttons": []
+    },
+    "admin_due_request": {
+      "format": "rich_html",
+      "html": "<h2>💳 ADMIN · DUE CLEARANCE REVIEW</h2><table bordered compact><tr><th>RESELLER</th><td>{{resellerName}} · <code>{{resellerId}}</code></td></tr><tr><th>REQUEST</th><td>{{ticketId}}</td></tr><tr><th>AMOUNT</th><td>৳{{sales}}</td></tr><tr><th>METHOD</th><td>{{paymentMethod}}</td></tr><tr><th>TRANSACTION</th><td><code>{{transactionId}}</code></td></tr><tr><th>STATUS</th><td>{{status}}</td></tr></table><tg-button-row><tg-button type=\"callback_data\" style=\"success\" data=\"preview_due_action:confirm\">CONFIRM</tg-button><tg-button type=\"callback_data\" style=\"danger\" data=\"preview_due_action:reject\">REJECT</tg-button></tg-button-row><p><i>Admin-only sample · No payment or ledger is changed.</i></p>",
+      "buttons": []
+    },
+    "admin_order": {
+      "format": "rich_html",
+      "html": "<h2>🧾 ADMIN · ORDER REVIEW</h2><table bordered compact><tr><th>ORDER</th><td><code>{{orderId}}</code></td></tr><tr><th>CUSTOMER</th><td>{{customerName}}</td></tr><tr><th>PRODUCT</th><td>{{product}} · {{package}}</td></tr><tr><th>PAYMENT</th><td>{{paymentStatus}}</td></tr><tr><th>ORDER STATUS</th><td>{{status}}</td></tr><tr><th>AMOUNT</th><td>৳{{sales}}</td></tr></table><p><i>Admin-only preview · Sample data.</i></p>",
+      "buttons": []
+    },
+    "report": {
+      "format": "rich_html",
+      "html": "<h2>📊 EH GAMESHOP REPORT</h2><h3>REPORT DATE · {{date}}</h3><blockquote><b>ORDERS</b> · {{orders}}</blockquote><blockquote><b>SALES</b> · ৳{{sales}}</blockquote><blockquote><b>RECEIVED</b> · ৳{{received}}</blockquote><blockquote><b>OUTSTANDING DUE</b> · ৳{{due}}</blockquote><h3>PRODUCT PERFORMANCE</h3><blockquote>{{products}}</blockquote><p align=\"right\"><i>🕒 Last Updated: {{lastUpdated}}</i></p>"
+    },
+    "customer_delivery_new": {
+      "format": "rich_html",
+      "html": "<blockquote><b>EH Gameshop — শতভাগ বিশ্বস্ততার প্রতিশ্রুতি</b></blockquote><h3><u>{{product}} — {{package}}</u></h3><table compact><tr><td><b>ACCOUNT INFORMATION</b></td><td align=\"right\"><tg-button type=\"copy_text\" text=\"{{copyText}}\">📋 COPY INFO</tg-button></td></tr></table><table bordered compact><tr><th>EMAIL / ID</th><td><code>{{email}}</code></td></tr><tr><th>PASSWORD</th><td><code>{{password}}</code></td></tr><tr><th>PROFILE</th><td><b>{{profile}}</b></td></tr><tr><th>PIN</th><td><code>{{pin}}</code></td></tr><tr><th>EXPIRY DATE</th><td><b>{{customerExpiry}}</b></td></tr></table>{{detailsHtml}}<tg-button-row><tg-button type=\"callback_data\" style=\"primary\" data=\"{{toggleAction}}:{{orderId}}:{{itemId}}\">{{toggleLabel}}</tg-button></tg-button-row><tg-button-row><tg-button type=\"callback_data\" style=\"success\" data=\"preview_delivery_new_live:{{orderId}}:{{itemId}}\">🔄 LIVE UPDATE</tg-button></tg-button-row>",
+      "buttons": []
+    },
+    "reseller_delivery_new": {
+      "format": "rich_html",
+      "html": "<blockquote><b>EH Gameshop — শতভাগ বিশ্বস্ততার প্রতিশ্রুতি</b></blockquote><h3><u>{{product}} — {{package}}</u></h3><table compact><tr><td><b>ACCOUNT INFORMATION</b></td><td align=\"right\"><tg-button type=\"copy_text\" text=\"{{copyText}}\">📋 COPY INFO</tg-button></td></tr></table><table bordered compact><tr><th>EMAIL / ID</th><td><code>{{email}}</code></td></tr><tr><th>PASSWORD</th><td><code>{{password}}</code></td></tr><tr><th>PROFILE</th><td><b>{{profile}}</b></td></tr><tr><th>PIN</th><td><code>{{pin}}</code></td></tr><tr><th>EXPIRY DATE</th><td><b>{{customerExpiry}}</b></td></tr></table>{{detailsHtml}}<tg-button-row><tg-button type=\"callback_data\" style=\"primary\" data=\"{{toggleAction}}:{{orderId}}:{{itemId}}\">{{toggleLabel}}</tg-button></tg-button-row><tg-button-row><tg-button type=\"callback_data\" style=\"success\" data=\"preview_delivery_new_live:{{orderId}}:{{itemId}}\">🔄 LIVE UPDATE</tg-button></tg-button-row>",
+      "buttons": []
+    }
+  }
+}

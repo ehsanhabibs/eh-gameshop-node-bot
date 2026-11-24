@@ -1,0 +1,19 @@
+EH GAMESHOP — MONGODB QUICK SETUP
+
+1) Create a free MongoDB Atlas cluster and a Database User.
+2) In Atlas, open Connect -> Drivers, choose Node.js, and copy the connection URI.
+3) Replace <password> with the Database User password. URL-encode special characters in the password.
+4) Replit -> Tools -> Secrets: add MONGODB_URI with the full URI. Add MONGODB_DB=eh_gameshop_fresh (optional).
+5) In Atlas Network Access, allow the Replit outbound IP. If Replit's outbound IP is not fixed, 0.0.0.0/0 is the broad-access fallback; use a strong unique DB password and a dedicated least-privilege DB user.
+6) In Replit Shell run: npm install
+7) Then run: npm run check
+8) Then run: npm test
+9) Then run: npm start
+
+IMPORTANT
+- This package uses MongoDB for main business data; MONGODB_URI is required.
+- Existing JSON data is not imported; first connection creates a clean EH Gameshop data record.
+- Do not run two copies of the same Telegram bot token at once.
+- Free Atlas clusters can pause after inactivity and do not include continuous backups or a production SLA.
+- The app currently stores a full data snapshot in one MongoDB document (16 MB MongoDB document limit); split collections before scaling.
+- Do not send your bot token or MongoDB URI to anyone.

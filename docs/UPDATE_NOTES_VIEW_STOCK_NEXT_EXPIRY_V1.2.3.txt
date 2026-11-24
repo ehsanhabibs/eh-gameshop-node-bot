@@ -1,0 +1,33 @@
+EH GAMESHOP — UPDATE NOTES v1.2.3
+Date: 10 November 2026
+Base: EH_Gameshop_Telegram_Final_v1.2.2.zip
+Scope: View Stock navigation and original account expiry visibility.
+
+CHANGES
+1. VIEW STOCK — IN-PLACE STOCK ACCOUNT NAVIGATION
+- Opening a Stock Account from View Stock > Category > Account opens the full Stock Account Rich Message.
+- Added PREVIOUS and NEXT controls to move between stock accounts in the same product category.
+- PREVIOUS/NEXT edit the existing Rich Message instead of sending a new message.
+- The existing ACCOUNTS Back button remains available to return to the category account list.
+- PREVIOUS is disabled for the first account; NEXT is disabled for the last account.
+- Navigation keeps the same category ordering used by the View Stock account list.
+- When navigating, the existing Telegram message reference is moved to the currently displayed stock only, preventing stale stock views from overwriting the navigated message during live synchronization.
+
+2. EXPIRED ORIGINAL STOCK ACCOUNT
+- If the Stock Account's Original Expiry Date is earlier than the current Asia/Dhaka date, a red native Rich Message EXPIRED badge is displayed in the account detail.
+- The badge is visual only; it does not change the saved expiry date, customer expiry dates, profile assignment, stock data, or order history.
+- Future expiry dates (including dates in 2027) continue to display normally.
+- Existing customer-profile expiry badges and expiry calculations are unchanged.
+
+PRESERVATION
+- Preserved existing Rich Message First, In-place Navigation, and Live Status Synchronization standards.
+- Preserved the existing Stock Account Back-to-Accounts navigation.
+- Preserved Premium Light theme and existing category button styles in this base.
+- No production data reset, migration, or credential change was performed.
+- No .env, production data.json, PrivateUploads, node_modules, or .git directory is included.
+
+VALIDATION
+- npm run check: passed.
+- npm test: 171 passed, 0 failed.
+- ZIP integrity: checked after packaging.
+- No live Telegram API rendering or Replit deployment test was performed in this offline build environment.

@@ -1,0 +1,12 @@
+EH GAMESHOP — MINI APP NAVIGATION & STOCK PROFILE COMPACTNESS v1.1.7
+
+1. Main tab navigation now records the current screen's restore callback.
+2. Telegram BackButton / browser back restores a screen by re-rendering its section function where available, rather than restoring inert HTML without event handlers.
+3. Screen history stores active tab and scroll position.
+4. panel() supports replace and preserveScroll options.
+5. Stock Profile Add, Edit, Delete and Link Customer form results refresh inside the same Stock Account section without adding a new navigation-history entry or jumping to the top.
+6. Stock Account and Stock Category screens have restore callbacks for functional back navigation.
+7. Profile management cards use a compact responsive grid, tighter spacing and smaller usable Edit/Delete controls.
+
+Validation: npm run check passed; npm test passed (138/138).
+No production Mini App live rendering test was run in this offline build.

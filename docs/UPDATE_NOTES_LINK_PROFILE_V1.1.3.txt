@@ -1,0 +1,13 @@
+EH GAMESHOP — LINK PROFILE UPDATE v1.1.3
+
+1. Stock ID is selected first by opening the Stock Account in Mini App.
+2. Link Customer now offers two separate paths:
+   A. Select Existing Profile: choose an available profile, then enter Customer Name and Customer Expiry Date. Stored Profile Name and PIN are not edited.
+   B. Create New Profile + Link Customer: enter Profile Name, optional PIN, Customer Name and Customer Expiry Date.
+3. Telegram ID is not requested or sent by this Link Profile flow.
+4. Existing occupied or reserved profiles are rejected; an existing customer link is never overwritten by this flow.
+5. Name-only links use customerLinked=true and are treated as occupied by stock availability and order allocation.
+6. No order, sale, payment, or ledger entry is created.
+7. Stock Rich Message customer labels are normal text rather than italic.
+
+Validation: see npm run check and npm test results in handoff. Telegram production rendering is not tested by this offline build.

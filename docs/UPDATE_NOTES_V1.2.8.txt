@@ -1,0 +1,39 @@
+EH GAMESHOP — UPDATE NOTES v1.2.8
+==================================
+
+Base: EH_Gameshop_Telegram_Final_v1.2.7.zip
+
+CHANGES
+1. Stock Reminder list sorted by Original Expiry Date, earliest first. Missing expiry dates are last.
+2. Reminder and Stock Center dates use DD/MM/YY.
+3. Stock Category table has only CATEGORY and ACCOUNTS. Category name itself opens the account list; no ACTION/OPEN column.
+4. Stock Account rows show Stock ID, Status, Email, Password, Expiry and compact expand arrow.
+5. AVAILABLE is green and clickable. SOLD is green and disabled. EXPIRED is red and disabled.
+6. New Delivery Preview has a single-line tagline quote, separate bold product quote, Account Information and COPY INFO inside the table, compact TAP TO VIEW link and static green LIVE UPDATE indicator.
+7. Expanded New Delivery Preview shows only a compact vertical timeline; each time step includes a clock symbol.
+8. Copy Info uses an underlined product/package heading, a blank line, then ACCOUNT DETAILS and account fields.
+9. Reseller Mini App shows animated “Searching Available Stock…” while the existing order/delivery API processes, then displays the result.
+10. Root-level .txt files are grouped in docs/. ZIP extracts into one top-level project folder.
+
+PRESERVATION / LIMITATIONS
+- Existing standard Customer Delivery and Reseller Delivery templates remain unchanged; the separate New Design Preview is revised.
+- Existing business data, MongoDB records, stock, orders, reseller balances, customer records, Replit Secrets and .env were not reset or packaged.
+- Reseller loading is a frontend waiting state during the existing synchronous API request, not a live backend progress stream.
+- Telegram Rich Message native button dimensions remain controlled by Telegram clients.
+
+VALIDATION
+- index.js: PASS
+- reseller-system.js: PASS
+- lib/telegram-message-sync.js: PASS
+- lib/sms-activity.js: PASS
+- lib/domain.js: PASS
+- lib/reports.js: PASS
+- lib/subscriptions.js: PASS
+- lib/youtube-requests.js: PASS
+- lib/expiry-maintenance.js: PASS
+- lib/customer-expiry-date.js: PASS
+- lib/order-support.js: PASS
+- lib/stock-purchase-cycles.js: PASS
+- portal-check: PASS
+- npm-test: FAIL
+- txt_files_grouped: PASS

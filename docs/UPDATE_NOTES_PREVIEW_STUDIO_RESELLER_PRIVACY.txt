@@ -1,0 +1,25 @@
+EH GAMESHOP — PREVIEW STUDIO & RESELLER PRIVACY UPDATE
+Build: 07 November 2026
+
+WHAT CHANGED
+1. Added one-at-a-time Preview Studio testing for Stock, Customer, Reseller and Admin message types.
+2. Added four Stock Management Rich Message table variants: Original, Compact, Expanded Rows and Hybrid. Preview options can be selected individually. The Expanded Rows variant is static; Telegram Rich Message does not implement a native interactive expand/collapse row in this layout.
+3. Added one-message preview reuse in the Admin Telegram chat. Repeated Preview tests edit the previous message when possible; if the message type cannot be edited, the bot attempts to delete the previous preview before sending the replacement.
+4. Preview tests use sample-only fixtures. They do not create real reseller/customer/order/stock records or change balances, stock, ledger or payment state. Preview-only buttons return a sample alert.
+5. Added Reseller preview types: Directory, Profile/Greeting, Dashboard, Shop, Order, Delivery, Due/Ledger, Due Request, My Profiles, Order Search, YouTube Request and Support. Added Admin Reseller Pricing, Due Review and Order Review previews.
+6. Added preview shortcuts to Stock Management, Reseller Pricing/Preview Lab, Reseller Customer Lookup, Admin Orders, Reports, Support Tickets and Due Clearance Requests. Added a direct Preview Reseller Profile action to the Telegram Reseller Directory.
+7. Test-send now targets only the authenticated Admin who requested the preview. It no longer broadcasts the test to every ADMIN_IDS entry.
+8. Customer Delivery and Reseller Delivery use the same customer-facing account presentation. Extra Days is not shown in either delivery message or in copy information.
+9. Extra Days is kept in Admin stock/reminder accounting but removed from non-Admin profile, order and search API projections, including Reseller order responses.
+10. Reseller identity is displayed as `R-<Telegram User ID>`; duplicate Telegram UID rows are removed from Reseller Profile/Greeting and Directory. The numeric Telegram ID remains the internal key for authentication and record ownership.
+11. New order IDs are shorter: `EHG-` plus 8 random uppercase alphanumeric characters, with collision checking. Existing historical IDs are unchanged.
+12. `config/preview-templates.json` is synchronized with the default templates. JSON/HTML/HTM/TXT paste/upload and MongoDB template saving remain available for future changes without another ZIP upload.
+
+VALIDATION
+- `npm run check` passed.
+- `npm test` passed: 104 tests, 0 failures.
+- Mini App inline JavaScript syntax check passed.
+- This build has not been deployed or live-tested against the production Telegram bot/MongoDB instance.
+
+DEPLOYMENT NOTE
+Upload/deploy this ZIP once to apply the new code. Later Preview template changes can be saved from Preview Studio without replacing the ZIP, as long as the deployed app remains running the new code.

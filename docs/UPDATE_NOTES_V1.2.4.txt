@@ -1,0 +1,40 @@
+EH GAMESHOP — UPDATE NOTES v1.2.4
+==================================
+Base: EH_Gameshop_Telegram_Final_v1.2.3.zip
+Scope: Telegram reseller Auto Delivery, Admin account expiry reminders, reseller product buttons, and Telegram YouTube request flow.
+
+1. RESELLER AUTO DELIVERY
+- Fixed a delivery-breaking recipient variable error: the prepared reseller Telegram recipient is now used when sending the Rich Message. Previously an undefined variable caused the delivery attempt to fail and the reserved profile to be released.
+- Stock matching normalizes common product aliases (Amazon Prime / Prime Video / Prime, YouTube Premium / YouTube, VPN Subscription / VPN) before matching.
+- Existing FEFO allocation is preserved: among eligible matching stock accounts, the earliest Original Account Expiry is selected first; Stock ID is used as a stable tie-breaker.
+- Existing profile selection, reservation, successful Telegram send, and customer-validity-start-after-send behavior are preserved.
+- Stock allocation status now reflects occupied/reserved profile slots, not merely the number of profile rows created.
+- Failed Telegram delivery still releases the reserved profile and leaves the order retryable; it is not falsely marked Completed.
+
+2. ACCOUNT EXPIRY REMINDERS
+- Stock Account and reminder-only Account reminders run at 7 days, 3 days, 1 day before expiry, and on the expiry date.
+- Existing initial check and 30-minute scheduled checks remain enabled using Asia/Dhaka date calculation.
+- Reminder notifications now use Telegram Rich Message tables with Account details and a separate Profile Details table.
+- A reminder is marked sent only after all configured Admin sends succeed; failed sends remain retryable and are logged.
+- Customer-profile reminder helper remains unchanged at its existing 1-day / expiry-day schedule; this update specifically expands Original Stock/Reminder-only Account reminders.
+
+3. RESELLER PRODUCT BUTTONS
+- Telegram Reseller Shop shows four product choices in a consistent two-row layout: Amazon Prime, Crunchyroll, YouTube Premium, VPN.
+- Crunchyroll emoji corrected from orange circle to popcorn (🍿).
+- All four category buttons use the same primary Rich Message button style and similar label sizing.
+- VPN category routes to the active VPN package list.
+
+4. YOUTUBE PREMIUM — TELEGRAM FLOW
+- Selecting YouTube Premium offers Family Invite and Individual.
+- Family Invite defaults to quantity 1; Telegram inline + / − controls allow quantity 1–10. Continue prompts for exactly that many email addresses (one per line, or comma/semicolon separated). Invalid, duplicate, or count-mismatched addresses are rejected.
+- Each email is stored as an independently tracked request item. The active YouTube reseller unit price is applied per email and the total is added to the reseller due ledger.
+- Individual flow asks for one email address and creates one request item.
+- Admin can use /youtube in Telegram to review requests and update each email item to Accepted, Processing, Invited, Hold, Completed, or Rejected.
+- Resellers can use YOUTUBE REQUESTS from their Telegram Reseller Panel to view item status history. Admin status updates are sent to the reseller and the tracked status message is edited in place where possible.
+- Individual Google passwords and backup codes are deliberately not collected in Telegram. The existing YouTube request data model removes credential fields; secure credential capture would require a separately designed encrypted credential workflow and must not store plaintext secrets.
+
+5. VALIDATION
+- npm run check passed, including all Node source syntax checks and embedded portal JavaScript checks.
+- npm test passed: 176/176 tests.
+- No production MongoDB writes, live Telegram delivery, or Replit deployment were performed in this workspace. Live delivery must be verified after deployment with an authorized reseller test order and a free matching stock profile.
+- No business data reset, MongoDB database reset, or live deployment was performed.

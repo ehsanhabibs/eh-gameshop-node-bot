@@ -1,0 +1,15 @@
+EH GAMESHOP — MERGED RICH TABLE RESTORATION
+Base: EH_Gameshop_PremiumBlack_UI_StockTable_Updated.zip
+
+Preserved unchanged from the PremiumBlack latest build:
+- Public/portal.html (Mini App UI)
+- Reseller Directory Rich Table and its fixed action columns
+- Latest reseller system, API, data logic, product/shop flow, tests and package config
+- Existing data/database and secrets are not included or reset
+
+Restored selectively from EH_Gameshop_Reseller_Stock_RichTable_Patch.zip:
+- Telegram Stock View account detail Rich Message table and Profile Management section
+- Profile Add/Edit/Delete actions refresh the same Rich Message where supported
+- Reseller Welcome/Greeting Rich Message table, including Account Status and Credit Status badges
+
+No whole-file replacement from the older patch was performed.

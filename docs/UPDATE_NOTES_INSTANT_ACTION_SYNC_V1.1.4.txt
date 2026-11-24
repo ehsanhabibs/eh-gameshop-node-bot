@@ -1,0 +1,27 @@
+EH GAMESHOP — INSTANT ACTION / MESSAGE SYNC UPDATE v1.1.4
+
+Scope implemented
+-----------------
+1. Added a shared Telegram message-reference updater in lib/telegram-message-sync.js.
+2. Stores chat_id/message_id/kind references for customer/reseller order status messages, admin payment review messages, delivery messages, reseller profile greetings, and due-clearance request messages.
+3. Order/payment/delivery state changes edit the previously stored Telegram message using editMessageText. Rich Messages are updated with the rich_message field.
+4. Admin payment review buttons are refreshed with the payment state; Confirm/Reject actions become non-clickable status badges after a decision.
+5. Customer and reseller order status messages update in place. Telegram reseller checkout stores the order confirmation message reference.
+6. Reseller Active/Inactive and Credit On/Off changes update the existing reseller welcome/profile Rich Message instead of sending a second status message.
+7. Reseller due-clearance requests track both Admin review and reseller status messages. Confirm/Reject updates both existing messages in place.
+8. Existing Admin payment/due-clearance callback messages can be registered when an Admin clicks an old button, then updated from that point onward.
+9. Stock account credential updates route through the same Rich Message-aware order synchronization path.
+10. If Telegram explicitly reports a message as uneditable/not found, the updater sends a replacement and moves the stored reference. Transient failures such as ETIMEDOUT do not trigger duplicate sends.
+
+Important Telegram limitation
+-----------------------------
+- The bot can edit only messages it is allowed to edit and for which it has a stored chat_id/message_id reference (or a reference supplied by the current callback query).
+- It cannot search arbitrary chat history or retroactively discover every old message.
+- This updater handles text and Rich Messages. Unsupported message types or deleted messages may require a replacement message.
+- No production Telegram live test was run in this offline build.
+
+Validation
+----------
+npm run check: passed.
+npm test: 126/126 passed.
+ZIP integrity: verified after packaging.

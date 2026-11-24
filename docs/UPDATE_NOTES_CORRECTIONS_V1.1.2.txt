@@ -1,0 +1,25 @@
+EH GAMESHOP — CORRECTION UPDATE
+Build: 1.1.2 · Base: 1.1.1
+
+IMPLEMENTED
+1. Stock Account Rich Message now shows Stock ID, Email/ID, Password, Original Account Expiry, profile counts, status and price in the upper section, followed by Profile Management in the SAME Rich Message.
+2. Stock ID, Email/ID and Password use Telegram Rich HTML code formatting.
+3. Stock Profile Management now uses exactly three columns: SL / PROFILE (profile name plus customer name on the next line), EXPIRY (customer expiry plus calculated +N Days), and ACTIONS (Edit + Delete together).
+4. Stock Hybrid Preview now includes the complete Stock Account Information section above the same three-column Profile Management table; it no longer separates profile details into another table/message.
+5. Reseller Directory now has exactly three columns: SL, RESELLER NAME, ACTIONS. Each row has Active/Inactive and Credit On/Off controls together. Reseller name opens detail in the same Rich Message; Back restores the correct directory page. No Edit/Delete controls are used.
+6. Reseller details show organized account information, non-clickable button-style Active/Inactive and Credit On/Off badges, and highlighted Reseller Priority Privileges.
+7. Reseller greeting heading is centered on three lines: WELCOME / TO / RESELLER NETWORK. Priority benefits are visually highlighted.
+8. Reminder-only profile form order is Profile Name, Customer Name, Customer Original Expiry Date. Telegram UID and manual Extra Days inputs are removed. Extra Days are calculated from the account expiry and entered customer expiry. Existing customer expiry dates are preserved when the main account expiry changes; only the calculated Extra Days are recalculated.
+9. Customer expiry reminders are disabled: no automatic or manual Customer Expiry Reminder is sent. Main Stock Account expiry reminders are Admin-only, one day before and on expiry date.
+10. Account Information Change Notice is a separate Admin-controlled action. After an account update, Admin selects a Stock and a linked Customer/Reseller to send the current Email, Password and Account Expiry. It is not automatically sent on each update.
+11. Safe Preview Template migration updates old built-in defaults only when saved templates still exactly match the previous defaults; Admin-customized templates are preserved.
+
+VALIDATION
+- node --check index.js: passed
+- node --check reseller-system.js: passed
+- node scripts/check-portal.js: passed
+- npm test: 111/111 passed
+- No live Telegram/production deployment test was performed.
+
+12. Customer expiry reminder helper schedule was restricted to [1, 0] days; the live customer reminder sender and manual customer reminder API are removed. Admin main-stock reminder schedule remains 1 day before and expiry date.
+13. Reseller directory pagination and Back from reseller detail now edit the same Rich Message instead of creating a new message.

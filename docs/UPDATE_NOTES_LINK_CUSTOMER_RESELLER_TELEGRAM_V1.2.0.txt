@@ -1,0 +1,31 @@
+EH Gameshop v1.2.0 — Link Customer & Telegram Reseller Flow Update
+Date: 10 November 2026
+Base: EH_Gameshop_Complete_Working_Bundle_v1.1.9.zip
+
+Changes
+1. Rebuilt /linkcustomer and Stock Center → Link Customer as an actual working Bot flow:
+   - Admin enters Stock ID; invalid IDs return a clear retry prompt.
+   - The same Rich Message is updated to show available existing profiles and Create New Profile when capacity permits.
+   - Existing profile linking preserves the saved Profile Name and PIN.
+   - New profile linking collects Profile Name and optional PIN.
+   - Both paths collect Customer Name and Customer Expiry, call the domain link function, save the data, and show a Rich Message confirmation.
+   - No Telegram ID, order, sale, or payment is created by this manual linking flow.
+   - The Admin Mini App Link Customer form also now filters inactive/deleted profiles, prevents past expiry dates, shows a Linking state, and returns explicit success/failure feedback before refreshing the stock view.
+   - Free-text entry prompts remain ordinary Telegram messages because Rich Message buttons do not provide free-text form input.
+2. Stock product category choices are arranged one button per row for consistent full-row sizing. Amazon Prime uses native primary blue; YouTube Premium uses native danger red; Crunchyroll uses the borderless link style with an orange marker. Stock category labels display the full brand names Amazon Prime, Crunchyroll and YouTube Premium.
+3. Reseller Network title uses a centered pull-quote block (`aside`) so only that title is centered/highlighted. Telegram Rich Messages do not expose arbitrary font-color controls, so exact white font color cannot be guaranteed; the pull-quote is the closest supported title-only highlight.
+4. Reseller Mini App access is disabled at API level for active resellers. Reseller chat menu buttons are set to Commands; reseller reply-keyboard menu no longer exposes Open EH Gameshop, Order Search Mini App, or Mini App buttons. `/portal` and Mini App API access are denied to active resellers.
+5. Reseller menu is a Telegram Rich Message with five primary actions: Order, My Orders, Sales Report, Account Statement, Support.
+6. Reseller order flow is a single-message Rich Message sequence: Amazon Prime / Crunchyroll / YouTube Premium → package → quantity minus/plus → total → Confirm Order. Order confirmation message references are saved for later in-place status updates.
+7. Reseller orders continue to use existing reseller pricing, credit authorization, due ledger, auto-delivery and stock allocation rules.
+
+Technical limitations
+- Telegram native Rich Message button styles are only `danger`, `success`, `primary`, and `link`. They do not support arbitrary brand HEX colors or a custom outlined neutral style. Crunchyroll therefore uses the closest native borderless `link` style with an orange icon marker. The `link` style is borderless rather than a filled/outlined neutral button.
+- Telegram Rich Message has no inline free-text form input. Link Customer name/date prompts and Support Ticket text input use ordinary Telegram replies; structured status/selection screens remain Rich Messages.
+- Reseller Mini App is blocked by API middleware, but Telegram live behavior must be confirmed after deployment. Existing resellers should send `/start` or `/reseller` once so their chat-specific menu button is reset to Commands.
+
+Validation
+- `npm run check`: passed.
+- `npm test`: 150/150 passed after final regression additions.
+- Production Telegram bot, MongoDB, and live Mini App were not launched or tested from this build environment.
+- No `.env`, production data, PrivateUploads, or node_modules were modified or included as new secrets.

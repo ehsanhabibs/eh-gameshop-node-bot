@@ -1,0 +1,11 @@
+EH GAMESHOP — STOCK VIEW RICH TABLE UPDATE v1.1.6
+
+1. View Stock opens a Rich Message category table instead of a generic inline-button list.
+2. Category table includes Category, Account Count and Open action.
+3. Selecting a category edits the same message into a four-column account table: Stock ID, Email / ID, Status and Action.
+4. Selecting a Stock Account edits the same message into the existing Stock Account + Profile Rich Message.
+5. Back navigation returns to the previous logical screen by editing the same message where Telegram permits.
+6. Native Telegram button styles are used for nearest available tint. Telegram Rich Message buttons do not provide arbitrary brand HEX colors, so exact Crunchyroll orange / Amazon blue / YouTube red custom colors cannot be guaranteed; supported primary/success/danger styles are used as approximations.
+7. Profile customer name, expiry and extra-day details use normal (non-italic) text. Extra Days remain in Admin Stock view only.
+
+Validation: npm run check and npm test results are in the v1.1.6 build.

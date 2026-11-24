@@ -1,0 +1,28 @@
+EH GAMESHOP — RECENT CORRECTIONS UPDATE
+Base archive: EH_Gameshop_Reseller_Directory_Credit_Toggles_Fixed.zip
+
+Implemented in this update:
+1. Added pending-input cancellation when a user selects a different menu/action, uses a reply-keyboard menu item, or sends a slash command. Added /cancel for the Stock/Admin text-input flow. Reseller /reseller, /resellermanagement and /support commands replace any previous reseller input state.
+2. Reseller Mini App now uses one direct Shop flow: Shop > Category > Product > Purchase > Automatic Delivery. The separate Credit Buy tab is removed. The shop uses the reseller-specific catalogue and displays reseller pricing. Purchase remains restricted until Admin turns Credit ON.
+3. Updated Mini App header: logo stays on the left; Bangladesh flag and live time appear together on the right; date is on the next line. Removed the “Dhaka, Bangladesh” suffix and improved small-screen sizing/name clipping.
+4. Added copy actions for stock account Email/Password, plus click-to-copy targets for Stock IDs, Order IDs, item IDs and Transaction IDs in relevant Mini App views.
+5. Preserved the existing near-black Premium Black theme and responsive visual system; refined header and copy affordances.
+6. Added native Telegram Bot API inline keyboard style fields (`primary`, `success`, `danger`) to suitable navigation, confirm, reject and delete actions. This is a PENDING LIVE TELEGRAM CLIENT TEST; the local test suite cannot prove the rendered button colors in every client.
+7. Reseller welcome message now shows both Account Status and Credit Access with clear status indicators.
+8. Main Mini App Order Search now follows the clearer dedicated Order Search page pattern: searchable result list, compact status chips, separate order detail view, Back to Results, and Copy Order ID / Copy Item ID actions.
+9. Reseller Directory rows now keep long names/usernames from expanding the first column; UID is displayed on its own line so the two action columns remain consistently aligned across rows.
+10. Existing Extra Days column is already present at the end of the Stock Profile table, following Expiry Date, and Customer Name is already displayed. No unnecessary change made there.
+
+Kept as EXPLORING / not claimed as implemented:
+- Telegram Rich Message logo-left / text-right product layout is not forced into an unsupported ordinary bot message structure.
+- Non-interactive, full-color button-like Status/Credit badges in a Telegram greeting are not simulated with clickable or disabled buttons. Greeting uses clear status indicators instead.
+
+Validation performed:
+- npm run check: passed.
+- npm test: passed (87 tests).
+- Mini App inline JavaScript syntax check: passed.
+- Live Telegram bot delivery/rendering and real device viewport testing were not available in this local build environment.
+
+Data safety:
+- No live database records or secrets were included or reset.
+- Keep existing MongoDB data and Replit Secrets unchanged when deploying.

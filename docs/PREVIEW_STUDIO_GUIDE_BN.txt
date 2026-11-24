@@ -1,0 +1,43 @@
+EH GAMESHOP — PREVIEW STUDIO ব্যবহারবিধি
+========================================
+
+কেন এই ব্যবস্থা
+---------------
+Stock Management, Reseller, Customer ও Admin-এর বিভিন্ন Message/Layout বাস্তবে Telegram-এ কেমন দেখায় তা আগে পরীক্ষা করার জন্য এই Preview Studio। Sample data ব্যবহার হয়; কোনো আসল Reseller, Customer, Stock, Order, Balance বা Ledger পরিবর্তন হয় না।
+
+কোথায় পাবে
+----------
+1. Admin হিসেবে Telegram Mini App খুলবে।
+2. `Preview Templates` অথবা `Reseller Preview Lab` tab খুলবে।
+3. `Preview Type` থেকে যে screen/message পরীক্ষা করতে চাও সেটি বেছে নেবে।
+4. Template দেখতে বা JSON/HTML/HTM/TXT পেস্ট/Upload করতে পারবে।
+5. `Save Selected Preview` চাপলে template MongoDB settings-এ সংরক্ষিত হবে।
+6. `Save & Send to My Telegram` চাপলে বাস্তব Telegram rendering-এ sample preview যাবে। পরের preview পাঠালে আগের preview message-টাই edit করার চেষ্টা হবে; type বদলে edit করা না গেলে আগেরটি delete করে নতুনটি পাঠানোর চেষ্টা হবে।
+
+Stock Management-এর চারটি Layout
+--------------------------------
+- Stock Table · Original — Profile, Customer, Expiry, Extra Days, Actions আলাদা কলামে।
+- Stock Table · Compact — Profile/Customer এবং Expiry/Extra Days একত্র করে কম প্রস্থে।
+- Stock Table · Expanded Rows — প্রতি Profile-এর অতিরিক্ত তথ্য আলাদা row-তে। এটি static layout; native expand/collapse control নয়।
+- Stock Table · Hybrid — Compact list-এর সঙ্গে নিচে Profile Details table।
+
+Telegram Bot-এর Stock Account Rich Message থেকেও `PREVIEW LAYOUTS` বাটন ব্যবহার করা যাবে। একবারে একটি Layout বেছে নেবে; একই Telegram message-এর মধ্যে layout বদলাবে।
+
+Reseller Preview
+----------------
+Reseller না থাকলেও Demo Reseller fixture দিয়ে Profile/Greeting, Directory, Dashboard, Shop, Order, Delivery, Due/Ledger, Due Request, My Profiles, Order Search, YouTube Request ও Support পরীক্ষা করা যাবে। কোনো বাস্তব Reseller account তৈরি হয় না। Telegram Reseller Directory-তেও `PREVIEW RESELLER PROFILE` action আছে।
+
+গুরুত্বপূর্ণ পার্থক্য
+--------------------
+- `Show Saved Rendered Source` হলো server-side rendered source দেখার জন্য; এটি Telegram client-এর screenshot নয়।
+- `Save & Send to My Telegram` হলো আসল Telegram Rich Message/Message rendering পরীক্ষা করার উপায়।
+- Telegram Rich Message-এ native interactive collapsible table row এই build-এ ব্যবহার করা হয়নি; Expanded Rows কেবল static expanded presentation।
+- Preview-এর EDIT/DELETE/BUY/CONFIRM/REJECT/LIVE UPDATE action sample-only alert দেখায়; কোনো real data বদলায় না।
+- Admin Preview message শুধু যিনি Preview পাঠিয়েছেন তাঁর Admin Chat-এ যায়; অন্য Admin-দের কাছে broadcast হয় না।
+- Template পরিবর্তন Save হলে ভবিষ্যতে শুধু JSON/HTML/TXT Upload/Paste করলেই হবে; নতুন ZIP দরকার হবে না। তবে এই নতুন Preview Studio feature প্রথমবার যোগ করতে এই ZIP deploy করতে হবে।
+
+Extra Days ও Reseller ID
+------------------------
+- Extra Days Admin-এর internal stock/reminder হিসাব। Customer/Reseller Delivery, Reseller My Profiles এবং non-Admin order/profile API response-এ এটি দেখানো বা পাঠানো হয় না।
+- Reseller-এর visible identifier `R-<Telegram User ID>`। আলাদা Telegram UID line দেখানো হয় না। Database authentication key হিসেবে numeric Telegram ID অপরিবর্তিত থাকে।
+- নতুন Order ID: `EHG-` + 8 random uppercase alphanumeric characters। পুরোনো Order ID পরিবর্তন করা হয় না।

@@ -1,0 +1,112 @@
+EH Gameshop build 1.2.1
+Date: 09 November 2026
+Base: EH_Gameshop_Preview_Studio_Reseller_Privacy_Update_v1.1.8.zip
+Changes: Unified Stock Account + Profile Rich Message; three-column Stock Hybrid table; tap-to-copy code-formatted Stock ID; three-column Reseller Directory with in-place details; centered Reseller Network greeting and non-clickable status badges; Admin-only account expiry reminders; Customer Expiry Date-based reminder profile entry with automatic Extra Days; separate manual Account Information Update Notice.
+Base v1.1.2 validation: 111/111 tests passed. v1.1.3 validation: 117/117 tests passed. v1.1.4 validation: 126/126 tests passed. v1.1.5 validation: 133/133 tests passed. v1.1.6 validation: 135/135 tests passed. v1.1.7 validation: 138/138 tests passed. v1.1.8 validation: 140/140 tests passed. v1.1.9 validation: npm run check passed; npm test passed (142/142).
+Preservation: v1.1.1 base archive remains unchanged. No .env, production data.json, PrivateUploads or node_modules are included.
+Telegram live rendering: not tested against the production Telegram bot; use Preview Studio Send to My Telegram after deployment for final client-side verification.
+
+Version 1.1.3 changes:
+- Corrected Link Profile flow: Stock ID context -> Select Existing Profile OR Create New Profile + Link Customer.
+- Existing-profile linking keeps the stored Profile Name and PIN unchanged.
+- New-profile linking collects Profile Name, PIN, Customer Name and Customer Expiry Date.
+- Removed Telegram ID from this Link Profile flow; named customer links are stored separately using customerLinked=true.
+- Existing occupied/reserved profiles cannot be overwritten; customer history remains protected.
+- Name-only linked profiles are excluded from reseller auto-allocation and manual order assignment until their expiry is processed.
+- Stock Rich Message profile customer labels use normal (non-italic) text.
+- Added unit tests for both link paths and overwrite protection.
+- Telegram /linkcustomer entry now opens the Mini App flow instead of requesting a Telegram ID.
+- Name-only linked profiles are protected from deletion and counted as assigned/running.
+
+Version 1.1.4 changes:
+- Shared Telegram message-reference registry and editMessageText synchronizer for Rich Messages and text messages.
+- Customer/reseller order status, payment review, and delivery messages update in place when their tracked order state changes.
+- Admin payment review actions become static status badges after Verify/Reject.
+- Reseller Active/Inactive and Credit On/Off changes edit the existing welcome/profile Rich Message.
+- Reseller due-clearance Admin and reseller messages update in place on Confirm/Reject.
+- Telegram reseller checkout stores its order confirmation message reference.
+- Stock credential changes use Rich Message-aware synchronization.
+- Known uneditable-message failures trigger replacement and reference migration; transient errors do not create duplicates.
+- See UPDATE_NOTES_INSTANT_ACTION_SYNC_V1.1.4.txt for Telegram limitations.
+
+Version 1.1.5 changes:
+- Added authenticated SMS Activity POST webhook using the screenshot JSON field names and Bearer Authorization header.
+- Added conservative bKash SMS parsing and exact Transaction ID + amount matching for customer orders and reseller due clearance.
+- Added duplicate protection, Admin Manual Review event storage/notification and Admin resolve endpoints.
+- No live bKash SMS sample or production webhook test was available; parser patterns remain provisional until the actual incoming SMS format and %from% value are confirmed.
+- See UPDATE_NOTES_SMS_ACTIVITY_V1.1.5.txt.
+
+Version 1.1.6 changes:
+- Admin View Stock category screen is now a Rich Table with category buttons, account counts and OPEN actions.
+- Category selection opens the aligned Stock ID / Email-ID / Status / Action Rich Table.
+- Category, account-list and Stock Account navigation edit the same Telegram message where supported.
+- Native Telegram button styles are used as closest available brand tints; arbitrary brand HEX button colors are not supported by the current Rich Message button style set.
+- Stock Profile customer/expiry/extra-days detail text is normal (non-italic) text.
+
+Version 1.1.7 changes:
+- Mini App panel navigation stores screen restore callbacks and re-renders the previous section on Back, restoring the selected tab.
+- Panel supports replace/preserve-scroll behavior so Stock Profile Add/Edit/Delete/Link results stay in the same content section without jumping to top.
+- Stock Profile cards use a compact responsive grid and smaller but usable action buttons.
+
+Version 1.1.8 changes:
+- Customer and reseller Mini App product cards open a package/plan detail table before purchase.
+- Product detail table includes Package/Plan, Duration, Details, Price and an embedded Order Now button per plan.
+- Subscription order form supports quantity +/- controls and initializes the selected plan price correctly.
+- Product detail, subscription purchase and reseller purchase screens restore their previous section through Back navigation.
+
+Version 1.1.9 changes:
+- Reseller Mini App main navigation includes Reseller Shop, Today's Orders, Order History, Sales Report, Account Statement, My Profile, Order Search, My Profiles, Support, YouTube and My Requests.
+- Added reseller-scoped Sales Report and My Profile APIs.
+- Today's Orders uses Bangladesh/Dhaka date filtering and includes all order statuses.
+- Sales Report includes daily/monthly/lifetime summaries, product breakdown and outstanding due.
+
+
+Version 1.2.0 changes:
+- Rebuilt Link Customer as a Bot-native Stock ID → Profile → Customer Name → Customer Expiry flow with Rich Message selection and in-place progress/confirmation. The Admin Mini App form now filters inactive/deleted profiles, blocks past expiry dates, and displays explicit submit/success/error feedback.
+- Added actual bot-level named customer linking, data persistence, and retryable validation; existing profile name/PIN are preserved.
+- Stock product selection uses one button per row; Amazon Prime uses primary blue, YouTube Premium danger red, and Crunchyroll the closest native borderless link style with an orange marker. Category labels use full brand names.
+- Reseller Network title uses Telegram's centered pull-quote block for title-only emphasis; exact custom white font color is not exposed by Rich Messages.
+- Disabled active reseller Mini App API access and removed reseller Mini App entry points from reseller menus; /start and /reseller reset the chat menu button to Commands.
+- Replaced reseller panel with five Telegram Rich Message actions: Order, My Orders, Sales Report, Account Statement, Support.
+- Added Rich Message reseller checkout: three requested products, package selection, quantity +/- and Confirm Order; order message reference is stored for future in-place updates.
+- Validation: npm run check passed; npm test 150/150 passed after final regression assertions. Telegram live rendering and MongoDB production behavior remain untested.
+
+Telegram-only update (10 November 2026):
+- Reseller /start now opens the Rich Message reseller action panel immediately; Order, My Orders, Purchase Report and Account Statement remain inline Rich Message actions.
+- Reseller Support is removed from the inline panel and is available through the persistent Reply Keyboard.
+- Reseller quantity preview uses green minus/plus controls around a centered QTY display, with Confirm Order on its own success-styled row.
+- Standard Bot API InlineKeyboardButton objects no longer receive the Rich Message-only `style` field; this prevents Telegram's Invalid button style error in stock/product selection and ordinary admin keyboards. Rich Message-native style attributes remain in Rich Message HTML.
+- Reseller due-clearance now presents bKash, Nagad and Rocket as selectable buttons.
+- Existing Mini App files were intentionally left unchanged; Mini App customization is deferred as requested.
+- Validation after this Telegram-only update: npm run check passed; npm test passed (156/156). Live Telegram rendering still requires post-deployment verification.
+
+
+============================================================
+BUILD v1.2.2 — FULL UI REFINEMENT
+Date: 10 November 2026
+Base: EH_Gameshop_Telegram_Final_v1.2.1.zip
+
+- Complete Link Customer stock picker / repeat-profile / back-cancel flow.
+- Customer expiry past-date handling and red EXPIRED badge in Telegram + Mini App.
+- Rich Message Stock Center, Add Stock, product selection and Account Update flows.
+- Reseller Order Now / quantity / purchase report / date-grouped history refinements.
+- Delivery preview Rich Tables with copy button, LIVE UPDATE and vertical timeline.
+- Restored approved Premium Light theme and approved pill-shaped product category button colors.
+- Account notices and stock/profile Rich Messages tracked for live synchronization.
+- Verification: npm run check passed; npm test 170/170 passed.
+- No live Telegram/MongoDB production test was performed.
+
+
+EH Gameshop build 1.2.4
+Date: 10 November 2026
+Base: EH_Gameshop_Telegram_Final_v1.2.2.zip
+Changes: View Stock full account details now support same-message Previous/Next navigation within the selected product category; expired Original Stock Account expiry shows a red native EXPIRED badge; tracked stock message reference is reassigned to the currently displayed stock during navigation.
+Validation: npm run check passed; npm test passed (171/171). No live Telegram API or Replit deployment test performed.
+
+
+UPDATE v1.2.4 — Telegram Delivery & Reminder Corrections
+- Reseller Auto Delivery recipient variable fixed; normalized product matching and FEFO stock priority preserved.
+- Admin Stock Account expiry reminders: 7, 3, 1 days before and expiry date; Rich Message table format.
+- Telegram Reseller Shop: four consistent buttons (Amazon Prime, 🍿 Crunchyroll, YouTube Premium, VPN).
+- Telegram YouTube Family Invite quantity selector (1–10), email list submission, Individual email request, Admin /youtube status controls, Hold status and reseller status history.
+- Validation: npm run check passed; npm test passed 176/176. Live Telegram/MongoDB deployment not performed.

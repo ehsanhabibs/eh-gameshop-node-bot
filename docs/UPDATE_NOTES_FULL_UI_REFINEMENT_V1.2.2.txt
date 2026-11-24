@@ -1,0 +1,79 @@
+EH GAMESHOP — FULL UI REFINEMENT UPDATE v1.2.2
+Base: EH_Gameshop_Telegram_Final_v1.2.1.zip
+Date: 10 November 2026
+
+SCOPE
+This release applies the previously requested EH Gameshop UI and workflow corrections to the verified v1.2.1 source. It does not reset production data, replace secrets, or change database identifiers.
+
+1. STOCK / PROFILE LINK CUSTOMER FLOW
+- Replaced typed Stock ID entry with a selectable active Stock Account list.
+- After selecting a Stock Account, the admin can select an existing profile or create a new one.
+- Added Add Another Profile for the same Stock, Choose Another Stock, View Linked Profiles, Back, and a separate Cancel action.
+- Back navigation retains entered fields where practical.
+- The same Rich Message is edited through the flow; free-text prompts remain separate Telegram chat replies because Rich Messages do not provide a free-text input field.
+- Existing profile name and PIN are preserved when an existing profile is selected.
+- The flow does not create a sale, order, or payment.
+
+2. CUSTOMER EXPIRY HANDLING
+- Expired customer profiles now show only a red, disabled EXPIRED badge in the Telegram Stock Account Rich Table; the expired date and Days Left value are hidden.
+- The same rule is applied to the Mini App Stock Lifecycle profile table and profile cards.
+- Today remains 0 Days Left; future dates show the date and remaining days.
+- Customer date-only input in DD.MM format now uses the current Bangladesh calendar year. A past date is rejected instead of silently rolling to the next year.
+- Mini App Edit Profile now includes Customer Expiry Date for assigned profiles, allowing an admin to correct an existing wrongly stored date (including a past/expired date). The edit updates Extra Days, reminders, and tracked previews.
+- Previously saved dates that were already incorrectly shifted into a future year are not auto-rewritten: a legitimate next-year expiry cannot safely be distinguished from an old input mistake. Correct those specific records through Stock Lifecycle → Edit Profile → Customer Expiry Date.
+
+3. STOCK CENTER / PRODUCT BUTTONS
+- Stock Center, Add Stock product selection, Default Price selection, input progress, and confirmation now use Rich Messages where supported.
+- Add Stock and price input screens edit the same message as each step advances.
+- Product buttons use native Rich Message styles: Amazon Prime blue/primary with 📦, YouTube Premium red/danger with ▶️, Crunchyroll neutral borderless/link with 🍿, and VPN green/success with 🛡️.
+- Stock Account profile table uses more spacing; category stock tables use larger cells and visible status badges.
+- Stock Account Rich Messages are tracked and synchronized after relevant profile/account changes.
+
+4. RESELLER PANEL / HISTORY / REPORTS
+- Reseller panel Order button is now green ORDER NOW with 🧺.
+- My Orders and Purchase Report share a row; Order Now and Account Statement use matching full-row widths.
+- Quantity minus/plus controls have a wider tap target while the quantity stays centered.
+- Purchase Order History is grouped by Bangladesh date in Telegram and the Mini App.
+- Purchase Report now shows daily and monthly product-wise quantity and amount, without lifetime sales/global lifetime totals or a grand total quantity.
+- Last Updated timestamps are right-aligned, italic, and use Asia/Dhaka with seconds and uppercase AM/PM.
+- Reseller greeting WELCOME / TO uses centered Rich Table cells; RESELLER NETWORK and RESELLER INFORMATION remain.
+
+5. ACCOUNT UPDATE / NOTICE / LIVE STATUS
+- Account Update and Account Update Notice navigation screens now use Rich Messages and selectable Stock Accounts.
+- Account Update progress and confirmation screens edit the same message.
+- Account Update Notice messages are Rich Messages and are tracked against their Stock Account.
+- Tracked Stock Account views and account notices are synchronized when stock details, profile assignment, expiry, or profile status changes. If a profile is no longer assigned to the original recipient, the old notice is changed to a profile-access-updated notice instead of continuing to expose account details.
+- Existing reseller greeting/status and order delivery message synchronization is retained.
+
+6. DELIVERY PREVIEW / REPORT TEMPLATE
+- Customer and reseller delivery previews now use Rich Message tables.
+- Account Details table, COPY INFO (native copy_text button), TAP TO VIEW, and green LIVE UPDATE are retained.
+- Added a compact vertical order timeline with connected circle/line markers and Bangladesh-local timestamps.
+- Missing package labels use Standard rather than the generic word Subscription.
+- Business Report template uses quote blocks, English labels, and a Last Updated timestamp outside the quote blocks.
+- Default-template migration upgrades only unchanged old defaults; customized saved templates are preserved.
+
+7. MINI APP THEME / PRODUCT CATEGORY BUTTONS
+- Restored the explicitly selected Premium Light theme (white, clean, modern). The unapproved Premium Black CSS overrides present in the base source were removed.
+- YouTube category button: deep red with white text and ▶️.
+- Amazon Prime category button: deep blue with white text and 📦.
+- Crunchyroll category button: full white background, black bold text, one 🍿 emoji, and pill shape (the user-approved design).
+- VPN category button: green with white text and 🛡️.
+- Category buttons are equal-width, pill-shaped, bold, larger, and keep emoji inside the button.
+- Dedicated Order Search page also follows Premium Light styling.
+
+TEST / VERIFICATION
+- `npm run check`: passed, including inline Mini App JavaScript syntax.
+- `npm test`: 170 tests passed, 0 failed.
+- ZIP integrity will be checked after packaging.
+- No live Telegram API, Replit deployment, or production MongoDB integration test was performed in this offline build environment.
+
+TECHNICAL LIMITATIONS / STILL PENDING
+- Telegram Rich Message uses native button styles only. Crunchyroll uses the borderless `link` style there; a true white-filled button with black text is implemented in the Mini App, where CSS styling is available.
+- Free-text values (Profile Name, PIN, Customer Name, Expiry Date, account credentials) still require separate Telegram chat replies; Rich Message cannot host a free-text input control.
+- Stock Overview Occupied/Full definition still needs the user's confirmation (fully filled slots vs any assigned profile).
+- The proposed single persistent Mini App launcher + dedicated role-specific Telegram Dashboard remains a pending navigation decision and was not imposed in this release.
+
+SAFETY / DATA
+- No data.json, .env, Replit secrets, private uploads, node_modules, or .git directory is included.
+- No production data reset or database migration was performed.

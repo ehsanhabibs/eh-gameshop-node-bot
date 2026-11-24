@@ -1,0 +1,22 @@
+EH GAMESHOP — RESELLER PANEL & REPORTING UPDATE v1.1.9
+
+Reseller Mini App main menu now includes:
+- Reseller Shop
+- Today's Orders
+- Order History
+- Sales Report
+- Account Statement
+- My Profile
+- Order Search
+- My Profiles
+- Support
+- YouTube
+- My Requests
+
+Added authenticated reseller-only endpoints:
+- GET /api/reseller/report: Dhaka-local Today, daily report, monthly report, lifetime sales summary, delivered item count, pending item count, outstanding due and all today's orders.
+- GET /api/reseller/profile: reseller name, username, ID, Active/Inactive, Credit On/Off, tier, join date, last seen and due.
+
+Today's Orders uses Asia/Dhaka date filtering and shows all order statuses. Sales Report uses non-test reseller orders and separates daily, monthly and lifetime summaries. Account Statement reuses the existing Due / Ledger view; Order History reuses the existing My Orders view.
+
+Validation: npm run check passed; npm test passed (142/142).

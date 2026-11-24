@@ -1,0 +1,56 @@
+EH GAMESHOP — UPDATE NOTES v1.2.7
+==================================
+Base: EH_Gameshop_Telegram_Final_v1.2.6.zip
+Scope: Yesterday's primary corrections — YouTube request flow, Account Replace, Reminder Preview/scheduling, button consistency, Stock Preview, Link Customer categories, and reseller delivery safety.
+
+1. YOUTUBE FAMILY INVITE + INDIVIDUAL EMAIL ERROR
+- Fixed the runtime ReferenceError: `money is not defined` in the shared YouTube request submission/Admin notification path by adding the missing currency formatter in index.js.
+- Both Family Invite and Individual requests can now continue through the email submission and notification-building step.
+- Added a working in-place Back route from Individual email entry and Family email entry/quantity selection. The reseller shop flow state is restored instead of being discarded.
+- Email submission errors now remain visible in a Rich Message and are logged with their stack for diagnosis.
+
+2. ACCOUNT REPLACE PASSWORD LOOP
+- Reordered Account Replace handling so the `newPassword` step is processed before the generic email/replace branch.
+- After entering the new email, the next message is now handled as the new password and completes the replacement instead of prompting for email/password repeatedly.
+- Existing account data is changed only after the new password is accepted.
+
+3. EXPIRY REMINDER LIST + PREVIEW + SCHEDULE
+- Replaced the long Inline Keyboard stock selector with a Rich Table list showing serial, clickable Email, Product/Stock ID and Expiry.
+- Clicking an Email opens the selected account's reminder preview in the same Rich Message. Preview includes Account Information and compact Profile/Customer/PIN/Expiry details.
+- Added an explicit SEND REMINDER NOW action in the preview.
+- Automatic stock expiry checks now run every 5 minutes (Bangladesh/Dhaka date calculation and the existing 7/3/1/0-day schedule remain in place).
+- Reminder state is saved after successful delivery. Admin send attempts are isolated so one Admin delivery failure does not block other Admin recipients; failures are logged and an undelivered reminder is not marked as sent.
+
+4. STOCK CENTER — COMPACT EXPANDABLE PREVIEW
+- Email and Password now share one table cell, stacked vertically; Expiry and Status remain separate columns.
+- Removed the separate VIEW action. Clicking the Email text opens the existing full Stock Account Rich Message.
+- The per-account arrow expands only that account's own profile details underneath the row.
+- Expanded details show Profile Name, Customer Name, PIN and Customer Expiry in a compact two-column table.
+- No profile details from another Stock Account are mixed into the expanded row.
+
+5. LINK CUSTOMER — CATEGORY-FIRST STOCK SELECTION
+- Link Customer now opens a Rich Message Category screen first.
+- Selecting a category shows only Stock Accounts from that category, preventing Amazon Prime and other products from appearing in one mixed selection list.
+- Back navigation returns to the category list in the same message.
+
+6. BUTTON GROUP CONSISTENCY
+- Reseller Shop's four main product choices now use one consistent native style, arranged as a 2×2 group with concise labels and no manual whitespace padding that could distort emoji/text.
+- Add Stock product selection uses the same 2×2 grouping for the four main categories; Free Fire remains on its own row.
+- Button groups use consistent alignment and style where the same semantic action applies. Telegram controls the final native button dimensions; exact pixel width/height cannot be forced by Rich Message markup.
+
+7. RESELLER AUTO DELIVERY SAFETY — PROFILE REQUIRED
+- Auto Delivery can only reserve an existing, active, named profile configured by Admin.
+- The delivery allocator no longer creates a profile automatically when an account has no profiles.
+- An account with no configured profile remains Awaiting Stock and is not delivered to a customer/reseller.
+- A PIN is optional; a valid named profile is mandatory.
+
+8. PRESERVATION / TECHNICAL NOTES
+- Original Customer Delivery and Reseller Delivery templates remain unchanged; the separate New Delivery Preview remains Preview Studio-only unless separately approved.
+- Existing MongoDB data, stock, orders, balances, customers, reseller records and Replit Secrets are not reset or included in the release ZIP.
+- No live Telegram API rendering or Replit deployment was performed in this offline build.
+- Native Telegram Rich Message button width/height and exact pill geometry are controlled by Telegram clients/API; the build standardizes rows, styles, label length and alignment without claiming fixed pixel dimensions.
+
+9. VALIDATION
+- `npm run check`: passed.
+- `npm test`: 197/197 passed, 0 failed.
+- Node syntax checks passed for modified JavaScript modules.

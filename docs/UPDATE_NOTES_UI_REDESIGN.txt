@@ -1,0 +1,27 @@
+EH GAMESHOP — PREMIUM BLACK UI / STOCK TABLE UPDATE
+
+Source of truth: EH_Gameshop_Recent_Corrections_Updated.zip
+Reference used: EH_Gameshop_Reseller_Stock_RichTable_Patch.zip (stock preview template only)
+
+Implemented in this update:
+1. Reworked the Mini App visual system to a near-black Premium Black theme with high-contrast typography, dark surfaces, emerald accent actions, clearer card hierarchy, and improved mobile spacing.
+2. Added reusable full-colour status badge styles with live dot indicators and distinct pending/processing/completed/rejected/active/inactive states.
+3. Improved Product Catalogue action layout: Edit and Archive occupy consistent, larger touch targets; Archive is no longer a tiny edge-only target.
+4. Reworked Stock Management category cards so View Stock is an actual full-width button (not a decorative tag inside a clickable card).
+5. Improved Stock Account detail table styling and horizontal scrolling while retaining Customer Name, Expiry Date, and Extra Days columns.
+6. Added +/- quantity stepper controls to direct reseller purchase confirmation, preserving the 1–20 quantity limit and live total calculation.
+7. Applied the dedicated compact/bordered Rich HTML Stock Preview table format from the separate Stock RichTable patch to the latest source, without replacing latest index.js/reseller-system.js with older patch files.
+8. Preserved existing header/logo/time behavior, direct reseller Shop → Category → Product → Purchase → Auto Delivery, copy actions, and existing data/API logic.
+
+Validation performed locally:
+- npm run check: passed.
+- npm test: 88 tests passed.
+- Mini App inline JavaScript syntax: passed.
+
+Not claimed as verified:
+- Live Telegram Rich Message appearance and button rendering require a live Telegram client.
+- Real phone-size visual QA was not available in this build environment.
+
+Deployment safety:
+- No data.json, database records, .env, bot token, or secrets are included or reset.
+- Do not run npm start from Shell. Apply files, then use Replit Deployment → Republish.

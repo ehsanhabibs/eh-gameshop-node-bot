@@ -1,0 +1,44 @@
+EH GAMESHOP — UPDATE NOTES v1.2.9
+================================
+
+BASE SOURCE
+- EH_Gameshop_Telegram_Final_v1.2.8.zip
+- This is an incremental source update. Existing application data and production settings were not changed.
+
+IMPLEMENTED CORRECTIONS
+1. Stock Center compact Rich Table now uses the aligned columns: STOCK ID, EMAIL / PASSWORD, EXPIRY, STATUS.
+2. Email opens the full Stock Account Details screen; password remains visible in the combined cell; profile details expand in-place.
+3. AVAILABLE is shown as a disabled green status control (not clickable). SOLD is a separate light-green display label. EXPIRED is a disabled red status control.
+4. Expanded profile details show each profile's own status: AVAILABLE, SOLD, or EXPIRED. Profile expiry dates use DD/MM/YYYY.
+5. An expired customer profile is no longer auto-reused during reseller delivery. Admin must explicitly press REACTIVATE SLOT first. Reactivation stores the previous customer assignment in profile history.
+6. Expiry Reminder list is sorted by each profile/customer expiry date, earliest first; stock Original Account Expiry is used when a profile has no customer expiry. Dates display DD/MM/YYYY.
+7. Mini App profile cards show ACTIVE in green, EXPIRED in red, and AVAILABLE when not linked. Expired profiles show their actual expiry date beside the red badge.
+8. Reseller Home Menu is a persistent bottom Reply Keyboard with Order Now, My Orders, Purchase Report, Account Statement, and Support. Each item has a direct handler; menu screens update the same Rich Message where the existing message can be edited.
+9. Order Now uses the requested shopping-cart symbol 🛒 consistently in the current reseller UI.
+10. Reseller order confirmation displays a real PREPARING / GENERATING state before the order allocation/delivery request is processed. The message is then updated with the actual result.
+11. New Delivery Preview uses one brand tagline quote, an underlined product/package heading, Account Information with COPY INFO, a green LIVE UPDATE action, and a compact vertical ORDER HISTORY reveal.
+12. Reseller Mini App loading visibility was increased slightly while the existing API request runs; it is not represented as a backend progress stream.
+13. Added regression coverage for the persistent menu, in-place message editing, profile reactivation, stock status display, and Mini App expiry badges.
+
+DESIGN PRESERVATION / OPEN VERIFICATION
+- The incoming v1.2.8 Mini App styling was preserved; no theme-wide redesign was made in this incremental correction.
+- Historical project notes also contain Premium Black references. The incoming v1.2.8 portal source explicitly contains an "APPROVED PREMIUM LIGHT REFINEMENTS" section and tests for Premium Light, so this build does not silently switch the theme. Confirm the intended theme separately before a future theme-only change.
+- Telegram Rich Message rendering, disabled-button appearance, and reply-keyboard behavior still require a live Telegram client check after deployment.
+
+VALIDATION
+- npm run check: PASS
+- npm test: PASS (201 tests, 0 failures)
+- JavaScript syntax checks: PASS
+- Mini App inline JavaScript check: PASS
+- preview-templates.json parse: PASS
+- ZIP integrity test: PASS after packaging
+
+NOT PERFORMED
+- No production deployment or Republish action.
+- No live Telegram API calls or real-device visual QA.
+- No MongoDB data, customer records, stock, orders, reseller balances, bot token, Replit Secrets, or .env files were included or reset.
+- Runtime startup was not attempted because it requires the user's configured BOT_TOKEN and MongoDB connection.
+
+DEPLOYMENT SAFETY
+- This is a source ZIP only. Keep the existing production database and Replit Secrets unchanged.
+- Do not start a second bot instance from Shell. Apply the source files using the user's established Replit workflow, then use Deployment → Republish.
