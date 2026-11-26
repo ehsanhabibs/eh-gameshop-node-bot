@@ -98,7 +98,7 @@ test('Stock product buttons use equal full-row layout and requested native brand
 test('Existing reseller chat menu buttons are reset to Commands on startup and reseller start',()=>{
  assert.match(index,/for\(const \[resellerId,reseller\] of Object\.entries\(data\.resellers\|\|\{\}\)\)/);
  assert.match(index,/resellerActive&&!isAdmin\(ctx\)/);
- assert.match(index,/resellerActive \? \[\['🛒 Order Now','📦 My Orders'\],\['📊 Purchase Report','💳 Account Statement'\],\['🆘 Support'\]\]/);
+ assert.match(index,/resellerActive \? \[\[\{text:'🛒 ORDER NOW',style:'success'\},\{text:'📦 MY ORDERS',style:'primary'\}\],\[\{text:'📊 PURCHASE REPORT',style:'success'\},\{text:'💳 ACCOUNT STATEMENT',style:'primary'\}\],\[\{text:'🆘 SUPPORT',style:'danger'\}\]\]/);
  assert.match(index,/Reseller Mini App access is temporarily disabled/);
 });
 

@@ -1,0 +1,61 @@
+EH GAMESHOP — v1.2.12 CORRECTIONS & UI UPGRADE
+================================================
+Base: EH_Gameshop_Telegram_v1.2.11_Hotfix.zip
+Build date: 26 November 2026
+
+PRIORITY BUG FIXES
+------------------
+1. Expiry Reminder button
+- Added the missing Admin callback handler for reminder_menu.
+- Added an Expiry Reminders screen with expired stock/profile list and account preview.
+- Added a persisted global pause/resume control for repeated expired-account notifications.
+- Existing expired stock accounts now trigger an Admin alert immediately on the next expiry check, then every 30 minutes while enabled.
+- Each alert includes product, Stock ID, account ID, expiry date, View Account and Stop Alerts actions.
+- The expiry checker still runs on startup and every five minutes; the per-stock timestamp enforces the 30-minute repeat interval.
+
+2. Reseller Due Clearance payment method
+- Added bKash, Nagad and Rocket payment-method callbacks to the active reseller flow allowlist.
+- This prevents the flow middleware from deleting the due-clearance session before the selected method is processed.
+
+DELIVERY PREVIEW
+----------------
+- Preserved the Original and Existing New Delivery Preview designs.
+- Added Customer Delivery · Reference-Based Design and Reseller Delivery · Reference-Based Design.
+- The new design follows the supplied reference: separate tagline and bold product quote blocks, bordered Account Information header, Copy button, expandable Tap to View account table, Order Number + Amount row, Order History and green Live Update action.
+- Added a Main Delivery Template selector in Preview Studio. The selected template is saved on each order when delivery starts, so later status synchronization keeps that order on its original selected design; existing sent messages and order records are not changed.
+- The new reference layout uses native Rich Message <details> and bordered tables.
+
+ORDER GENERATION / LOADING
+--------------------------
+- Telegram reseller checkout now shows four edited Rich Message progress stages over approximately four seconds before starting stock allocation/delivery, then shows Account Found or Waiting for Available Stock for one additional second before the order result. Delivery details are not sent before the progress sequence finishes.
+- Mini App customer subscription and VPN checkout now show a large animated circular loader, staged progress and an Order Request Ready state for a minimum of five seconds before the payment step. The customer API creates a pending order and does not assign an account until payment verification/delivery, so the Mini App does not falsely claim an account has already been found.
+- Admin manual delivery and Admin Test Order delivery use the same circular account-finding loader, ending with Account Found before delivery confirmation.
+- Telegram reseller checkout shows Account Found only when every requested item is delivered immediately; otherwise it shows Waiting for Available Stock before the order summary.
+- Reseller purchasing inside the Mini App is view-only; the Mini App order-creation API also rejects reseller-role requests. Reseller order placement remains in the Telegram Reseller Panel.
+
+STOCK / NAVIGATION
+------------------
+- View Stock profile expansion is now a native Rich Message expandable details section with separate Profile, Customer, PIN, Expiry Date and Status rows.
+- The profile details are placed immediately below the account table because Rich Message table cells support inline content only; expandable blocks cannot be nested inside a table cell.
+- Mini App Stock Account Details now include Previous / Next account navigation while replacing the current screen in place.
+- Mini App Order Search now expands one selected Order Preview below the results. Selecting another order replaces the previous preview instead of navigating to the top of a new page.
+
+VISUAL DESIGN / FORMATTING
+--------------------------
+- Mini App uses the Premium Black palette with clearer semantic status colors and product-specific CTA colors: Amazon Prime blue, Crunchyroll white, VPN green, YouTube Premium red.
+- Expanded/selected UI state is not incorrectly shown as an Active green status.
+- Telegram reseller category buttons use the matching native styles: Amazon Prime primary blue, Crunchyroll default, YouTube Premium danger red, VPN success green.
+- Persistent Reply Keyboard buttons use Telegram's native primary/success/danger button styles and uppercase labels.
+- Date display is DD MMM YYYY (example: 03 Dec 2026) and displayed times use 12-hour AM/PM format in Bangladesh/Dhaka time.
+
+VALIDATION
+----------
+- npm run check: PASS.
+- npm test: 219/219 PASS.
+- Added regression tests for reminder callback/repeat interval, due-clearance payment flow, delivery template selection, loading sequence, date/time format, Mini App reseller view-only access and styled persistent keyboards.
+- Telegram live rendering, Railway deployment and MongoDB production behavior were not exercised in this offline build environment. After uploading the ZIP, use Preview Studio → Send to My Telegram to verify the three delivery layouts, then Republish the existing Railway service.
+
+PRESERVATION
+------------
+- Base ZIP was extracted and updated in place; existing files, configuration, product data logic, database schema and locked Rich Message / In-place Navigation / Live Status Synchronization standards were preserved.
+- No .env, production data.json, PrivateUploads or node_modules are included.

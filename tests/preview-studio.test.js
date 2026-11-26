@@ -31,7 +31,8 @@ test('Customer and reseller delivery hide internal Extra Days and share the cust
  assert.equal((block.match(/type="copy_text" text="\{\{copyText\}\}"/g)||[]).length,2);
  assert.equal((block.match(/<h3>ORDER TIMELINE<\/h3>/g)||[]).length,2);
  assert.equal((block.match(/style="success" data="\{\{callbackPrefix\}\}_live/g)||[]).length,2);
- assert.match(index,/renderPreview\("reseller_delivery"/);
+ assert.match(index,/selectedDeliveryTemplate\('reseller'\)/);
+ assert.match(index,/deliveryTemplateValues\(order,item,stock,profile\)/);
 });
 
 test('Business report uses compact Rich Message quote blocks and keeps Last Updated outside the quote blocks',()=>{
@@ -207,22 +208,20 @@ test('Subscription order form includes quantity +/- controls and restores the se
 });
 
 
-test('New Delivery Preview is a separate Rich Message variant with in-place Order History reveal',()=>{
- const block=index.slice(index.indexOf('customer_delivery_new:'),index.indexOf('reminder:'));
- assert.equal((block.match(/<blockquote>/g)||[]).length,2);
- assert.equal((block.match(/<h3><u>{{product}} — {{package}}<\/u><\/h3>/g)||[]).length,2);
- assert.equal((block.match(/type="copy_text" text="{{copyText}}"/g)||[]).length,2);
+test('New Delivery Preview preserves the existing design and adds a selectable reference-based Rich Message',()=>{
+ const block=index.slice(index.indexOf('customer_delivery_reference:'),index.indexOf('reminder:'));
+ assert.equal((block.match(/Tap to view account details/g)||[]).length,2);
  assert.equal((block.match(/ACCOUNT INFORMATION/g)||[]).length,2);
- assert.ok(block.includes('<u>{{product}} — {{package}}</u>'));
+ assert.equal((block.match(/type="copy_text" text="{{copyText}}">Copy ▢/g)||[]).length,2);
+ assert.equal((block.match(/📦 <b>Order Number: {{orderNumber}}<\/b>/g)||[]).length,2);
+ assert.equal((block.match(/data="delivery_live:{{orderId}}:{{itemId}}"/g)||[]).length,2);
+ assert.match(index,/mainDeliveryTemplate/);
+ assert.match(index,/selectedDeliveryTemplate/);
+ assert.match(index,/orderHistoryTableHtml/);
+ assert.match(portal,/customer_delivery_reference:'Customer Delivery · Reference-Based Design'/);
+ assert.match(portal,/Set as Main Delivery Preview/);
  assert.match(index,/preview_delivery_new_more/);
  assert.match(index,/preview_delivery_new_hide/);
- assert.match(index,/editMessageText',\{chat_id:ctx\.chat\.id,message_id:ctx\.callbackQuery\.message\.message_id,rich_message:\{html:newDeliveryPreviewHtml/);
- assert.match(index,/◷ ORDER HISTORY/);
- assert.match(block,/🔄 LIVE UPDATE/);
- assert.match(index,/📧 Email: \$\{base\.email\}/);
- assert.match(index,/ORDER CREATED · 09:00 AM/);
- assert.match(portal,/customer_delivery_new:'Customer Delivery · New Design'/);
- assert.match(portal,/reseller_delivery_new:'Reseller Delivery · New Design'/);
 });
 
 test('Stock Account Profile Management separates Edit and Delete actions into aligned table rows',()=>{
@@ -241,6 +240,6 @@ test('Primary Stock Center category list uses inline Email, Password, Expiry and
  assert.match(compact,/data="stock_account:\$\{esc\(st\.id\)\}"/);
  assert.match(compact,/\$\{esc\(st\.password\|\|'—'\)\}/);
  assert.match(compact,/fmtDate\(st\.originalExpiry\)/);
- assert.match(compact,/stock_compact_expand:/);
+ assert.match(compact,/<details><summary>⌄ PROFILE DETAILS · \${esc\(st\.id\)\}<\/summary>/);
  assert.doesNotMatch(compact,/data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
 });

@@ -52,7 +52,7 @@ test('Reseller Rich Message menu includes Support while the persistent keyboard 
  for(const action of ['rs:shop','rs:orders','rs:sales','rs:statement'])assert.ok(reseller.includes(`data="${action}"`),`missing ${action}`);
  assert.match(reseller,/data="rs:support"/);
  assert.match(reseller,/if\(action==='support'\)[\s\S]*?editResellerRich\(ctx,'<h2>🛟 RESELLER SUPPORT/);
- assert.match(reseller,/bot\.hears\('🆘 Support'/);
+ assert.match(reseller,/bot\.hears\('🆘 SUPPORT'/);
  assert.doesNotMatch(reseller,/OPEN MINI APP SHOP/);
  assert.match(reseller,/setChatMenuButton\(\{chat_id:Number\(id\),menu_button:\{type:'commands'\}\}\)/);
 });
@@ -79,12 +79,12 @@ test('Reseller /start opens the Telegram Rich Message order panel and puts Suppo
  assert.match(start,/rs:orders/);
  assert.match(start,/rs:sales/);
  assert.match(start,/rs:statement/);
- assert.match(start,/Markup\.keyboard\(\[\['🛒 Order Now','📦 My Orders'\],\['📊 Purchase Report','💳 Account Statement'\],\['🆘 Support'\]\]\)\.resize\(\)\.persistent\(\)/);
- assert.match(resellerSource,/bot\.hears\('🛒 Order Now'/);
- assert.match(resellerSource,/bot\.hears\('📦 My Orders'/);
- assert.match(resellerSource,/bot\.hears\('📊 Purchase Report'/);
- assert.match(resellerSource,/bot\.hears\('💳 Account Statement'/);
- assert.match(resellerSource,/bot\.hears\('🆘 Support'/);
+ assert.match(start,/Markup\.keyboard\(\[\[\{text:'🛒 ORDER NOW',style:'success'\},\{text:'📦 MY ORDERS',style:'primary'\}\],\[\{text:'📊 PURCHASE REPORT',style:'success'\},\{text:'💳 ACCOUNT STATEMENT',style:'primary'\}\],\[\{text:'🆘 SUPPORT',style:'danger'\}\]\]\)\.resize\(\)\.persistent\(\)/);
+ assert.match(resellerSource,/bot\.hears\('🛒 ORDER NOW'/);
+ assert.match(resellerSource,/bot\.hears\('📦 MY ORDERS'/);
+ assert.match(resellerSource,/bot\.hears\('📊 PURCHASE REPORT'/);
+ assert.match(resellerSource,/bot\.hears\('💳 ACCOUNT STATEMENT'/);
+ assert.match(resellerSource,/bot\.hears\('🆘 SUPPORT'/);
  assert.match(start,/rs:support/);
 });
 

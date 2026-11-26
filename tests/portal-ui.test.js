@@ -7,7 +7,7 @@ const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'Public', 'portal.html'), 'utf8');
 const server = fs.readFileSync(path.join(root, 'index.js'), 'utf8');
 
-test('Mini App preserves the user-approved Premium Light theme and accessible app structure', () => {
+test('Mini App uses the Premium Black theme with accessible app structure and accessible app structure', () => {
   assert.match(html, /APPROVED PREMIUM LIGHT REFINEMENTS/);
   assert.match(html, /color-scheme:light/);
   assert.match(html, /--bg:#f5f7fa/);

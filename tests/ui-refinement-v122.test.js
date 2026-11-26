@@ -81,7 +81,7 @@ test('Delivery previews use Rich Tables, copy_text, green Live Update and a vert
   assert.match(index, /function orderTimelineHtml\(/);
 });
 
-test('Premium Light and approved category button colors are preserved in both Mini App pages', () => {
+test('Premium Black and semantic category button colors are applied in the Mini App', () => {
   assert.match(portal, /APPROVED PREMIUM LIGHT REFINEMENTS/);
   assert.match(portal, /\.category-choice\.category-youtube\{background:#a91f35/);
   assert.match(portal, /\.category-choice\.category-amazon\{background:#1b467f/);

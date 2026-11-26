@@ -10,7 +10,7 @@ const portal=fs.readFileSync(path.join(root,'Public','portal.html'),'utf8');
 const domain=require('../lib/domain');
 
 test('Reseller bottom Home Menu has direct actions and keeps one Rich Message updated in-place',()=>{
-  for(const label of ['🛒 Order Now','📦 My Orders','📊 Purchase Report','💳 Account Statement','🆘 Support'])assert.ok(reseller.includes(`bot.hears('${label}'`),`missing ${label} handler`);
+  for(const label of ['🛒 ORDER NOW','📦 MY ORDERS','📊 PURCHASE REPORT','💳 ACCOUNT STATEMENT','🆘 SUPPORT'])assert.ok(reseller.includes(`bot.hears('${label}'`),`missing ${label} handler`);
   assert.match(reseller,/bot\.__ehResellerHomeMessageRefs\s*\|\|=\s*new Map\(\)/);
   assert.match(reseller,/homeMessageRefs\.get\(key\)/);
   assert.match(reseller,/editMessageText.*homeMessageRefs\.set/s);
@@ -19,8 +19,8 @@ test('Reseller bottom Home Menu has direct actions and keeps one Rich Message up
 
 test('Stock table status controls are display-only and profile rows distinguish AVAILABLE, SOLD and EXPIRED',()=>{
   assert.match(index,/<th>STOCK ID<\/th><th>EMAIL \/ PASSWORD<\/th><th>EXPIRY<\/th><th>STATUS<\/th>/);
-  assert.match(index,/type="disabled" style="success">● AVAILABLE/);
-  assert.match(index,/<b>🟩 SOLD<\/b>/);
+  assert.match(index,/type="disabled" style="success">AVAILABLE/);
+  assert.match(index,/type="disabled" style="primary">SOLD/);
   assert.match(index,/type="disabled" style="danger">EXPIRED/);
   assert.doesNotMatch(index,/type="callback_data"[^>]*>● AVAILABLE/);
 });
@@ -34,9 +34,10 @@ test('Expired profile can only be freed by explicit Admin reactivation and retai
   assert.equal(p.customerId,null);assert.equal(p.status,'Available');assert.equal(p.history[0].customerId,'11111');
 });
 
-test('Mini App displays expired profiles in red with DD/MM/YYYY expiry and active profiles in green',()=>{
+test('Mini App displays expired profiles in red with DD MMM YYYY expiry and active profiles in green',()=>{
   assert.match(portal,/\.status-badge\.rejected,\.status-badge\.inactive,\.status-badge\.expired/);
   assert.match(portal,/function displayDhakaDate\(/);
+  assert.match(portal,/month:'short',year:'numeric'/);
   assert.match(portal,/status-badge expired/);
   assert.match(portal,/status-badge active/);
   assert.match(portal,/customerProfileStatusHtml\(p\)/);

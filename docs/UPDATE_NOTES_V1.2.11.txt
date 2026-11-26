@@ -1,0 +1,17 @@
+EH GAMESHOP — v1.2.11 UI CORRECTION
+==================================
+
+1. SOLD STATUS
+- Replaced the green-square emoji text with a native Rich Message disabled green status button labelled SOLD.
+- Applied to both Stock Account status and expanded Profile status.
+- SOLD remains display-only and cannot trigger an action.
+
+2. AVAILABLE STATUS — TELEGRAM LIMITATION
+- AVAILABLE remains a native disabled green status button and cannot trigger an action.
+- Telegram Rich Message disabled buttons are rendered by Telegram as disabled controls. The Bot API does not provide a separate appearance-only mode that looks exactly like an enabled/clickable button while being non-clickable.
+- A callback button could look enabled but would be clickable, so it was deliberately not used because the requested behavior is non-clickable.
+
+3. MINI APP URL
+- Railway Public Domain created: https://eh-gameshop-node-bot-production.up.railway.app
+- WEB_APP_URL is configured to the portal path /portal.html in Railway.
+- Existing MongoDB data and secrets are preserved.

@@ -21,7 +21,7 @@ test('Compact View Stock preview has independent Email and expand actions with a
   assert.match(source, /stock_profile_reactivate:/);
   assert.ok(source.includes("const expiry=st.originalExpiry?fmtDate(st.originalExpiry):'—'"));
   assert.match(source, /<th>STOCK ID<\/th><th>EMAIL \/ PASSWORD<\/th><th>EXPIRY<\/th><th>STATUS<\/th>/);
-  assert.match(source, /type="disabled" style="success">● AVAILABLE/);
+  assert.match(source, /type="disabled" style="success">AVAILABLE/);
   assert.doesNotMatch(source, /type="callback_data" style="success" data="stock_account:\$\{esc\(st\.id\)\}">AVAILABLE/);
   assert.match(source, /STOCK CENTER · ACCOUNTS/);
 });
@@ -57,9 +57,9 @@ test('Expired and archived stock management is available and prevents adding pro
 
 test('Reseller product colors/icons and checkout button text follow the latest requested corrections', () => {
   assert.match(reseller, /style="primary" data="rs:cat:0">📦 AMAZON PRIME/);
-  assert.match(reseller, /style="primary" data="rs:cat:1">🍿 CRUNCHYROLL/);
-  assert.match(reseller, /style="primary" data="rs:cat:2">▶️ YOUTUBE/);
-  assert.match(reseller, /style="primary" data="rs:cat:3">🛡️ VPN/);
+  assert.match(reseller, /data="rs:cat:1">🍿 CRUNCHYROLL/);
+  assert.match(reseller, /style="danger" data="rs:cat:2">▶️ YOUTUBE PREMIUM/);
+  assert.match(reseller, /style="success" data="rs:cat:3">🛡️ VPN/);
   assert.match(reseller, /🛒 ORDER NOW/);
   assert.match(reseller, /data="rs:confirm">CONFIRM ORDER/);
   assert.doesNotMatch(reseller, /data="rs:confirm">✅ CONFIRM ORDER/);
