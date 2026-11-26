@@ -2,19 +2,15 @@ FROM node:20-bookworm-slim
 
 WORKDIR /app
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip \
-    && rm -rf /var/lib/apt/lists/*
+# GitHub repository root is the single source of truth.
+# Do not unpack a second, potentially stale application ZIP during deployment.
+COPY package.json ./
+RUN npm install --omit=dev
 
-COPY ehgs-source.zip /tmp/ehgs-source.zip
+COPY . .
 
-RUN unzip -q /tmp/ehgs-source.zip -d /tmp/ehgs-source \
-    && PACKAGE_JSON="$(find /tmp/ehgs-source -type f -name package.json -print -quit)" \
-    && test -n "$PACKAGE_JSON" \
-    && PROJECT_DIR="$(dirname "$PACKAGE_JSON")" \
-    && cp -a "$PROJECT_DIR"/. /app/ \
-    && rm -rf /tmp/ehgs-source /tmp/ehgs-source.zip \
-    && npm install --omit=dev
+# Stop deployment if the uploaded source is incomplete or tests fail.
+RUN npm run check && npm test
 
 ENV NODE_ENV=production
 

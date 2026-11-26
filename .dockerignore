@@ -1,0 +1,17 @@
+.env
+.env.*
+data.json
+**/data.json
+PrivateUploads/
+**/PrivateUploads/
+.git/
+**/node_modules/
+node_modules/
+.venv/
+venv/
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+coverage/
+*.log
+*.zip
