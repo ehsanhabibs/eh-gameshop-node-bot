@@ -45,7 +45,7 @@ test('Reference-based delivery uses native collapsible details, bordered account
 
 test('Telegram stock profile expansion uses native details and separates profile, customer, PIN, expiry and status',()=>{
  const block=index.slice(index.indexOf('function stockCompactPreviewHtml'),index.indexOf('async function editStockRichScreen'));
- assert.match(block,/<details><summary>⌄ PROFILE DETAILS/);
+ assert.match(block,/<details><summary>⌄ PROFILES ·/);
  for(const label of ['👤 CUSTOMER','🔐 PIN','📅 EXPIRY DATE','📌 STATUS'])assert.ok(block.includes(label));
 });
 

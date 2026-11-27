@@ -20,7 +20,7 @@ test('Compact View Stock preview has independent Email and expand actions with a
   assert.match(source, /PROFILE DETAILS/);
   assert.match(source, /stock_profile_reactivate:/);
   assert.ok(source.includes("const expiry=st.originalExpiry?fmtDate(st.originalExpiry):'—'"));
-  assert.match(source, /<th>STOCK ID<\/th><th>EMAIL \/ PASSWORD<\/th><th>EXPIRY<\/th><th>STATUS<\/th>/);
+  assert.match(source, /<th>EMAIL \/ ID<\/th><td><tg-button type="callback_data" style="link" data="stock_account:/);
   assert.match(source, /type="disabled" style="success">AVAILABLE/);
   assert.doesNotMatch(source, /type="callback_data" style="success" data="stock_account:\$\{esc\(st\.id\)\}">AVAILABLE/);
   assert.match(source, /STOCK CENTER · ACCOUNTS/);
@@ -87,10 +87,10 @@ test('Auto delivery requires a preconfigured named profile and does not create o
   assert.match(block,/String\(p\.profile\|\|''\)\.trim\(\)/);
 });
 
-test('Stock compact preview combines email and password, removes View action, and expands profile name/customer/PIN',()=>{
-  assert.match(source,/<th>EMAIL \/ PASSWORD<\/th>/);
-  assert.match(source,/Password: <code>\$\{esc\(st\.password\|\|'—'\)\}<\/code>/);
-  assert.match(source,/PROFILE DETAILS/);
+test('Stock compact preview shows email, password and profile details per-account, and removes the View action',()=>{
+  assert.match(source,/<th>EMAIL \/ ID<\/th>/);
+  assert.match(source,/<th>PASSWORD<\/th><td><code>\$\{esc\(st\.password\|\|'—'\)\}<\/code><\/td>/);
+  assert.match(source,/PROFILES ·/);
   assert.match(source,/PIN: \$\{esc\(p\.pin\)\}/);
   assert.doesNotMatch(source,/data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
 });

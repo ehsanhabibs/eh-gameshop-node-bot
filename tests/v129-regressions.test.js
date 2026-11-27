@@ -18,7 +18,7 @@ test('Reseller bottom Home Menu has direct actions and keeps one Rich Message up
 });
 
 test('Stock table status controls are display-only and profile rows distinguish AVAILABLE, SOLD and EXPIRED',()=>{
-  assert.match(index,/<th>STOCK ID<\/th><th>EMAIL \/ PASSWORD<\/th><th>EXPIRY<\/th><th>STATUS<\/th>/);
+  assert.match(index,/<th>EMAIL \/ ID<\/th><td><tg-button type="callback_data" style="link" data="stock_account:/);
   assert.match(index,/type="disabled" style="success">AVAILABLE/);
   assert.match(index,/type="disabled" style="primary">SOLD/);
   assert.match(index,/type="disabled" style="danger">EXPIRED/);
