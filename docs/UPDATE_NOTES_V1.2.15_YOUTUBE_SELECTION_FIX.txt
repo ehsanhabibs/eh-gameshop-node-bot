@@ -1,0 +1,21 @@
+EH Gameshop v1.2.15 — YouTube Request Selection Patch
+
+This is a patch to the existing v1.2.15 codebase. The package version remains 1.2.15; no version bump was made.
+
+Changes:
+- YouTube admin request selection is stored in the MongoDB-backed app state instead of process-only memory, so selecting multiple email items is retained across callbacks and bot restarts.
+- Added Select All / Deselect All for only unfinished items. Completed and Rejected items are excluded.
+- Individual selection toggles preserve other selected email items.
+- Added Clear Selection.
+- The Telegram /youtube request list now shows total email count and per-status counts for each request.
+- The request detail view also shows per-status counts and selected/eligible counts.
+- The Admin Mini App YouTube Requests view now shows total items and per-status counts on each request card.
+- Bulk Complete Selected and Complete All remain request-scoped and require confirmation.
+- Existing status model is preserved in this patch; no Invited status migration or removal is included.
+
+Verification:
+- npm test: 230 passed, 0 failed.
+- npm run check: passed, including inline Mini App JavaScript syntax.
+- node --check lib/youtube-admin-selection.js: passed.
+
+No GitHub push, deployment, or live database mutation was performed.

@@ -31,3 +31,24 @@ test('Reseller product category buttons use the requested semantic color mapping
   assert.match(source, /style="danger" data="rs:cat:2">▶️ YOUTUBE PREMIUM/);
   assert.match(source, /style="success" data="rs:cat:3">🛡️ VPN/);
 });
+
+
+test('YouTube request overview displays per-status item counts and Select All control', () => {
+  const source = fs.readFileSync(path.join(root, 'index.js'), 'utf8');
+  assert.match(source, /function youtubeStatusSummary\(parent\)/);
+  assert.match(source, /ITEM STATUS SUMMARY/);
+  assert.match(source, /SELECT ALL/);
+  assert.match(source, /ytadm:bulk:all:/);
+  assert.match(source, /youtubeAdminSelections/);
+});
+
+test('new YouTube request notifications show item status summary before opening details', () => {
+  const source = fs.readFileSync(path.join(root, 'index.js'), 'utf8');
+  assert.match(source, /<tr><th>ITEM STATUS<\/th><td>\$\{esc\(youtubeStatusSummary\(parent\)\)\}<\/td><\/tr>/);
+});
+
+test('Mini App YouTube request cards show total and per-status item counts', () => {
+  const portal = fs.readFileSync(path.join(root, 'Public', 'portal.html'), 'utf8');
+  assert.match(portal, /const summary=\['Pending Review','Accepted','Processing','Invited','Hold','Completed','Rejected'\]/);
+  assert.match(portal, /\$\{\(x\.items\|\|\[\]\)\.length\} total/);
+});
