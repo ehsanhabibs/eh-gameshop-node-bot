@@ -27,10 +27,8 @@ if (!TOKEN) {
 }
 
 const bot = new Telegraf(TOKEN);
-const APP_VERSION = require("./package.json").version;
-console.log(`EH Gameshop build v${APP_VERSION} · canonical repository-root source`);
 // Bot API 9.4 native inline-keyboard styles; raw button objects keep compatibility with older Telegraf typings.
-const styledCallback = (text, callback_data, style) => ({ text, callback_data, ...(style ? { style } : {}) });
+const styledCallback = (text, callback_data, _style) => ({ text, callback_data });
 const LOGO_PATH = path.join(__dirname, "eh-logo.png");
 const ASSET_DIR = path.join(__dirname, "assets");
 const ADMIN_IDS = new Set(String(process.env.ADMIN_IDS || "").split(/[ ,]+/).map(x => x.trim()).filter(Boolean));
@@ -1155,8 +1153,8 @@ async function runTicketHoldChecks(){const now=Date.now();for(const t of data.ti
 async function startApplication() {
   await connectMongoAndLoad();
   app.listen(PORT, "0.0.0.0", () => console.log(`EH Gameshop API listening on ${PORT}`));
-  await bot.launch();
-  if(process.env.WEB_APP_URL){try{const miniAppUrl=new URL(process.env.WEB_APP_URL);miniAppUrl.searchParams.set("v",APP_VERSION);await bot.telegram.setChatMenuButton({menu_button:{type:"web_app",text:"Open EH Gameshop",web_app:{url:miniAppUrl.toString()}}});console.log("Telegram Mini App menu button configured:",miniAppUrl.toString());}catch(e){console.error("Mini App menu button setup failed:",e.message);}}
+  bot.launch().catch(e => console.error("Telegram bot launch failed:", e.message));
+  if(process.env.WEB_APP_URL){try{await bot.telegram.setChatMenuButton({menu_button:{type:"web_app",text:"Open EH Gameshop",web_app:{url:process.env.WEB_APP_URL}}});console.log("Telegram Mini App menu button configured.");}catch(e){console.error("Mini App menu button setup failed:",e.message);}}
   for(const [resellerId,reseller] of Object.entries(data.resellers||{})){if(!reseller?.active||ADMIN_IDS.has(String(resellerId)))continue;try{await bot.telegram.setChatMenuButton({chat_id:Number(resellerId),menu_button:{type:"commands"}});}catch(e){console.error('Could not disable reseller Mini App menu button for',resellerId,e.message);}}
   console.log("EH Gameshop Bot running with MongoDB storage.");
   runExpiryChecks().catch(e => console.error("Initial expiry check:", e.message));
