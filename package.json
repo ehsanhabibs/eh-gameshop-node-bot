@@ -1,6 +1,6 @@
 {
   "name": "eh-gameshop-main-bot",
-  "version": "1.2.13",
+  "version": "1.2.15",
   "private": true,
   "description": "EH Gameshop fresh-start Main Telegram Bot and Mini App",
   "main": "index.js",

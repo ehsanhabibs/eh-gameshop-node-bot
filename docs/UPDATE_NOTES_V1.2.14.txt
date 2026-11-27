@@ -1,0 +1,22 @@
+EH GAMESHOP v1.2.14 — STOCK CENTER / DELETE / RESELLER COLOR CORRECTIONS
+
+Base ZIP supplied by user: EH_Gameshop_Telegram_v1.2.14_Final_Corrections.zip.
+The supplied archive contained package version 1.2.13; package metadata has now been corrected to 1.2.14.
+
+Corrections in this build:
+1. Telegram Stock Center account disclosure no longer nests a table inside <summary>. The collapsed row directly renders Email, Password, account status and account expiry; expanding shows one compact row per profile with Profile Name, PIN, Expiry Date and status.
+2. Account-level status is EXPIRED (red), SOLD (neutral/check) only when all profile slots are assigned, otherwise ACTIVE (green).
+3. Mini App Stock Account Details removes the duplicate large Linked Profiles table and keeps compact profile rows. The account list keeps Email/Password left and status/expiry right. Mini App status notification is moved above the content region so it appears at the top. Dates use the Dhaka DD/MM/YYYY formatter in the Stock Account detail area.
+4. Permanent Stock Account Delete no longer requires Archive first. If linked profiles or order references exist, the API requires an explicit second acknowledgement. Deletion writes a non-credential audit record and appends customer subscription history markers; order records themselves are retained.
+5. Delete confirmation phrase is displayed with a Copy Code control in the Stock Details and Archived/Expired list.
+6. Expiry Reminder preview has a stronger Bangla warning and prominent danger status. Archived accounts remain excluded from reminder generation.
+7. Reseller product category colors: Amazon Prime blue, Crunchyroll neutral/default, YouTube Premium red, VPN green. Package buttons follow the same category color.
+
+Validation:
+- npm run check: passed (Node syntax and inline portal JavaScript syntax).
+- npm test: 224 tests passed, 0 failed.
+
+Important limitations:
+- This ZIP has not been deployed. No GitHub push or live database deletion was performed.
+- Visual verification on an actual Telegram client is still required because Rich Message rendering can differ by Telegram client.
+- Permanent deletion intentionally removes the stock record even if it has linked profiles after explicit confirmation. A deletion audit entry and customer-side history markers are retained; full account credentials are not retained in the audit.

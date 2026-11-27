@@ -86,9 +86,10 @@ test('Telegram reseller auto delivery sends the Rich Message to the prepared res
 test('Telegram reseller shop contains four equal-style product choices and YouTube Family quantity/email flow',()=>{
  const source=require('node:fs').readFileSync(require('node:path').join(__dirname,'..','reseller-system.js'),'utf8');
  assert.match(source,/style="primary" data="rs:cat:0">📦 AMAZON PRIME/);
- assert.match(source,/style="primary" data="rs:cat:1">🍿 CRUNCHYROLL/);
+ assert.match(source,/data="rs:cat:1">🍿 CRUNCHYROLL/);
+ assert.doesNotMatch(source,/style="primary" data="rs:cat:1">🍿 CRUNCHYROLL/);
  assert.match(source,/style="danger" data="rs:cat:2">▶️ YOUTUBE PREMIUM/);
- assert.match(source,/data="rs:cat:3">🛡️ VPN/);
+ assert.match(source,/style="success" data="rs:cat:3">🛡️ VPN/);
  assert.match(source,/rs:youtube:family/);
  assert.match(source,/rs:youtube:individual/);
  assert.match(source,/ytqty:\(\?:plus\|minus\)/);

@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const root = require('node:path').join(__dirname, '..');
 const source = fs.readFileSync(nodePath('index.js'), 'utf8');
 const reseller = fs.readFileSync(nodePath('reseller-system.js'), 'utf8');
+const portal = fs.readFileSync(nodePath('Public/portal.html'), 'utf8');
 function nodePath(name) { return require('node:path').join(root, name); }
 
 test('Account Update Notice passes the intended Telegram recipient into assignment verification', () => {
@@ -16,12 +17,12 @@ test('Account Update Notice passes the intended Telegram recipient into assignme
 test('Compact View Stock preview has independent Email and expand actions with an inline profile table', () => {
   assert.match(source, /function stockCompactPreviewHtml\(product,expandedStockId=null\)/);
   assert.match(source, /stock_account:\$\{esc\(st\.id\)\}/);
-  assert.match(source, /<details><summary><table compact>/);
-  assert.match(source, /PROFILE INFORMATION/);
+  assert.match(source, /<details><summary><b>\$\{esc\(st\.email/);
+  assert.match(source, /PROFILE/);
   assert.match(source, /stock_profile_reactivate:/);
   assert.ok(source.includes("const expiry=st.originalExpiry?fmtDate(st.originalExpiry):'—'"));
   assert.match(source, /<b>\$\{esc\(st\.email\|\|'—'\)\}<\/b>/);
-  assert.match(source, /type="callback_data" style="success" data="stock_profile_status_noop">ACTIVE/);
+  assert.match(source, /type="disabled" style="success">ACTIVE/);
   assert.doesNotMatch(source, /type="callback_data" style="success" data="stock_account:\$\{esc\(st\.id\)\}">AVAILABLE/);
   assert.match(source, /STOCK CENTER · ACCOUNTS/);
 });
@@ -57,9 +58,10 @@ test('Expired and archived stock management is available and prevents adding pro
 
 test('Reseller product colors/icons and checkout button text follow the latest requested corrections', () => {
   assert.match(reseller, /style="primary" data="rs:cat:0">📦 AMAZON PRIME/);
-  assert.match(reseller, /style="primary" data="rs:cat:1">🍿 CRUNCHYROLL/);
+  assert.match(reseller, /data="rs:cat:1">🍿 CRUNCHYROLL/);
+  assert.doesNotMatch(reseller, /style="primary" data="rs:cat:1">🍿 CRUNCHYROLL/);
   assert.match(reseller, /style="danger" data="rs:cat:2">▶️ YOUTUBE PREMIUM/);
-  assert.match(reseller, /data="rs:cat:3">🛡️ VPN/);
+  assert.match(reseller, /style="success" data="rs:cat:3">🛡️ VPN/);
   assert.match(reseller, /🛒 ORDER NOW/);
   assert.match(reseller, /data="rs:confirm">CONFIRM ORDER/);
   assert.doesNotMatch(reseller, /data="rs:confirm">✅ CONFIRM ORDER/);
@@ -89,13 +91,22 @@ test('Auto delivery requires a preconfigured named profile and does not create o
 
 test('Stock compact preview shows email-first account rows, value-only password, right-aligned expiry and native profile disclosure',()=>{
   assert.match(source, /function stockCompactPreviewHtml/);
-  assert.match(source, /<details><summary><table compact>/);
+  assert.match(source, /<details><summary><b>\$\{esc\(st\.email/);
   assert.match(source, /<b>\$\{esc\(st\.email\|\|'—'\)\}<\/b>/);
   assert.match(source, /<code>\$\{esc\(st\.password\|\|'—'\)\}<\/code>/);
-  assert.match(source, /align="right"><b>\$\{esc\(expiry\)\}<\/b>/);
-  assert.match(source, /PROFILE INFORMATION/);
-  assert.match(source, /🔐 PIN/);
-  assert.match(source, /type="callback_data" style="success" data="stock_profile_status_noop">ACTIVE/);
-  assert.match(source, /type="disabled" style="success">✓ SOLD/);
+  assert.match(source, /<span align="right"><b>\$\{esc\(expiry\)\}/);
+  assert.match(source, /PROFILE/);
+  assert.match(source, /<th>PIN<\/th>/);
+  assert.match(source, /type="disabled" style="success">ACTIVE/);
+  assert.match(source, /type="disabled" style="disabled">✓ SOLD/);
   assert.doesNotMatch(source, /data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
+});
+
+
+test('Permanent stock deletion permits explicit linked-profile acknowledgement and records an audit entry',()=>{
+ assert.match(source,/acknowledgeLinked!==true/);
+ assert.match(source,/stockDeletionAudit/);
+ assert.match(source,/STOCK_ACCOUNT_PERMANENTLY_DELETED/);
+ assert.match(portal,/id=\"copyStockDeletePhrase\"/);
+ assert.match(portal,/COPY CODE/);
 });
