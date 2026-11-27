@@ -1,0 +1,42 @@
+EH GAMESHOP v1.2.13 — COMPLETE UI & WORKFLOW CORRECTIONS
+
+Base source: uploaded EH_Gameshop_Telegram_v1.2.13_UI_Update.zip (its internal project metadata was v1.2.12). The project package version is now v1.2.13.
+
+Implemented corrections:
+1. Reference-Based Delivery Preview (Customer + Reseller)
+   - EH Gameshop brand line, normal-weight Bangla trust tagline, and separate bold product/package title.
+   - Account Information header with a Copy control and visible bordered account-details table.
+   - Order Number and amount displayed outside the account table.
+   - “Tap to view more details” reveals only the unboxed Order History timeline and green LIVE UPDATE action.
+   - Timeline timestamps use DD MMM YYYY and 12-hour AM/PM format.
+   - Copy payload contains product/package, a blank separator, and account details; it excludes the Account Information heading.
+   - Built-in defaults and config/preview-templates.json are synchronized.
+2. Delivery loading animation
+   - Mini App customer My Orders shows a VIEW ACCOUNT DETAILS action only after an item is Completed and its delivery snapshot is saved. The customer sees the same five-stage loader before the reference-style account preview. Account credentials are not exposed to reseller views or pending orders.
+   - The Admin Mini App delivery action also uses the five requested stages, compact heading/loader, and approximately 4.5-second minimum display.
+   - Admin can test the same five-stage sequence in Telegram with /deliverydemo; it uses sample credentials and does not create or change an order.
+3. Stock Archive / Expiry Reminder
+   - Archived Stock cycles are excluded from scheduled reminders, the manual Expiry Reminder list, Expiry & Maintenance results, and stale reminder callbacks.
+   - Archived account history uses compact email-first rows with value-only password, right-aligned expiry, and one native disclosure arrow for profile details.
+   - Profile history shows customer, PIN, expiry, and status; SOLD uses green and the click-only ACTIVE marker has no side effect.
+   - Renew Subscription remains an expiry extension on the same Stock ID; Create New Cycle remains the separate archive-and-new-ID operation.
+4. YouTube Family / Individual request workflow
+   - Both customer and reseller Telegram request notifications use Rich Messages with direct Admin item-level UPDATE actions.
+   - Customer/reseller supplies the new email address. Admin only records it; EH Gameshop does not provide a replacement account.
+   - Customer Mini App, reseller Telegram panel, and Admin Mini App labels explain this ownership correctly.
+   - Email change is one-time per email item and retains the old/new email in history.
+5. Reseller product buttons
+   - Four product choices use identical full-width row placement; Amazon Prime and Crunchyroll are blue, YouTube Premium red, VPN default/native.
+   - Telegram Rich Message does not expose arbitrary per-button width, height, font size, padding, or pixel-alignment controls. Native buttons therefore use the same full-row layout and native styles.
+6. Mini App UI
+   - Date displays use DD/MM/YYYY with 12-hour Dhaka date-time.
+   - Active is green, Expired red, Pending amber, Processing blue, Completed green, and Inactive grey.
+   - Profile-card action buttons and spacing are more compact.
+
+Validation:
+- npm run check: PASS
+- npm test: 223 passed, 0 failed
+
+Operational limitation:
+- The uploaded ZIP contains source code only; it does not contain the live MongoDB/data.json record set. The specific accidentally Archived Stock record was not deleted from live data in this source-only build. Its exact Stock ID was not present in the supplied ZIP or retrievable project notes. Do not delete a different archived cycle. The code now prevents archived records from appearing in or being sent through Expiry Reminders.
+- No GitHub push, deployment, or live database mutation was performed.

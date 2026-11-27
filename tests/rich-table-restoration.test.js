@@ -63,7 +63,8 @@ test('View Stock category screen and account list use Rich Tables with in-place 
  assert.match(index,/bot\.action\("stock_view".*?sendRichMessage/s);
  assert.match(index,/bot\.action\(\/\^stock_cat:\(\.\+\)\$\/.*?editStockRichScreen/s);
  assert.match(index,/bot\.action\(\/\^stock_account:\(\.\+\)\$\/.*?sendStockAccountRich\(ctx,st,true,messageId\)/s);
- assert.ok(index.includes('<th>EMAIL / ID</th><td><tg-button type="callback_data" style="link" data="stock_account:'));
+ assert.ok(index.includes('<details><summary><table compact>'));
+ assert.ok(index.includes("<b>${esc(st.email||'—')}</b>"));
  assert.match(index,/function stockCategoryStyle\(product\)/);
 });
 

@@ -74,9 +74,9 @@ test('Starter preview JSON is synchronized and delivery templates do not expose 
 
 test('Extra Days stays Admin-only across profile, order and search API projections',()=>{
  assert.match(index,/if\(admin\)\{row\.extraDaysRequired=p\.extraDaysRequired/);
- assert.match(index,/function clientSafeOrder\(order,admin=false\)/);
+ assert.match(index,/function clientSafeOrder\(order,admin=false,includeCustomerDelivery=false\)/);
  assert.match(index,/for\(const key of \["extraDaysRequired","accountPassword","accountEmail","stockId","stockProfileId"\]\)delete row\[key\]/);
- assert.match(index,/rows\.map\(o=>\{const safeOrder=clientSafeOrder\(o,admin\)/);
+ assert.match(index,/rows\.map\(o=>\{const safeOrder=clientSafeOrder\(o,admin,!admin&&!r\?\.active\)/);
  assert.match(portal,/me\?\.role==='admin'\?`<div class="row"><span>Extra Days Required/);
 });
 
@@ -188,7 +188,7 @@ test('Stock Profile form submissions refresh in place without adding navigation 
 test('Stock Profile management cards use compact responsive layout',()=>{
  assert.match(portal,/\.profile-grid\{display:grid;grid-template-columns:repeat\(auto-fit,minmax\(min\(100%,250px\),1fr\)\)/);
  assert.match(portal,/class="card profile-card"/);
- assert.match(portal,/\.profile-card \.btn\{padding:7px 10px;font-size:10px/);
+ assert.match(portal,/\.profile-card \.btn\{min-height:32px;padding:6px 9px;font-size:10px/);
 });
 
 test('Mini App product selection opens a package/plan detail table with an Order Now action',()=>{
@@ -210,9 +210,9 @@ test('Subscription order form includes quantity +/- controls and restores the se
 
 test('New Delivery Preview preserves the existing design and adds a selectable reference-based Rich Message',()=>{
  const block=index.slice(index.indexOf('customer_delivery_reference:'),index.indexOf('reminder:'));
- assert.equal((block.match(/Tap to view account details/g)||[]).length,2);
+ assert.equal((block.match(/Tap to view more details/g)||[]).length,2);
  assert.equal((block.match(/ACCOUNT INFORMATION/g)||[]).length,2);
- assert.equal((block.match(/type="copy_text" text="{{copyText}}">Copy ▢/g)||[]).length,2);
+ assert.equal((block.match(/type="copy_text" text="{{copyText}}">▢ Copy/g)||[]).length,2);
  assert.equal((block.match(/📦 <b>Order Number: {{orderNumber}}<\/b>/g)||[]).length,2);
  assert.equal((block.match(/data="delivery_live:{{orderId}}:{{itemId}}"/g)||[]).length,2);
  assert.match(index,/mainDeliveryTemplate/);
@@ -240,6 +240,6 @@ test('Primary Stock Center category list uses inline Email, Password, Expiry and
  assert.match(compact,/data="stock_account:\$\{esc\(st\.id\)\}"/);
  assert.match(compact,/\$\{esc\(st\.password\|\|'—'\)\}/);
  assert.match(compact,/fmtDate\(st\.originalExpiry\)/);
- assert.match(compact,/<details><summary>⌄ PROFILES · \${esc\(st\.email\|\|st\.id\)\}<\/summary>/);
+ assert.match(compact,/<details><summary><table compact>/);
  assert.doesNotMatch(compact,/data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
 });

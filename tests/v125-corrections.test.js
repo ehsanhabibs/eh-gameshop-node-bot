@@ -16,12 +16,12 @@ test('Account Update Notice passes the intended Telegram recipient into assignme
 test('Compact View Stock preview has independent Email and expand actions with an inline profile table', () => {
   assert.match(source, /function stockCompactPreviewHtml\(product,expandedStockId=null\)/);
   assert.match(source, /stock_account:\$\{esc\(st\.id\)\}/);
-  assert.match(source, /stock_compact_expand:/);
-  assert.match(source, /PROFILE DETAILS/);
+  assert.match(source, /<details><summary><table compact>/);
+  assert.match(source, /PROFILE INFORMATION/);
   assert.match(source, /stock_profile_reactivate:/);
   assert.ok(source.includes("const expiry=st.originalExpiry?fmtDate(st.originalExpiry):'—'"));
-  assert.match(source, /<th>EMAIL \/ ID<\/th><td><tg-button type="callback_data" style="link" data="stock_account:/);
-  assert.match(source, /type="disabled" style="success">AVAILABLE/);
+  assert.match(source, /<b>\$\{esc\(st\.email\|\|'—'\)\}<\/b>/);
+  assert.match(source, /type="callback_data" style="success" data="stock_profile_status_noop">ACTIVE/);
   assert.doesNotMatch(source, /type="callback_data" style="success" data="stock_account:\$\{esc\(st\.id\)\}">AVAILABLE/);
   assert.match(source, /STOCK CENTER · ACCOUNTS/);
 });
@@ -57,9 +57,9 @@ test('Expired and archived stock management is available and prevents adding pro
 
 test('Reseller product colors/icons and checkout button text follow the latest requested corrections', () => {
   assert.match(reseller, /style="primary" data="rs:cat:0">📦 AMAZON PRIME/);
-  assert.match(reseller, /data="rs:cat:1">🍿 CRUNCHYROLL/);
+  assert.match(reseller, /style="primary" data="rs:cat:1">🍿 CRUNCHYROLL/);
   assert.match(reseller, /style="danger" data="rs:cat:2">▶️ YOUTUBE PREMIUM/);
-  assert.match(reseller, /style="success" data="rs:cat:3">🛡️ VPN/);
+  assert.match(reseller, /data="rs:cat:3">🛡️ VPN/);
   assert.match(reseller, /🛒 ORDER NOW/);
   assert.match(reseller, /data="rs:confirm">CONFIRM ORDER/);
   assert.doesNotMatch(reseller, /data="rs:confirm">✅ CONFIRM ORDER/);
@@ -87,10 +87,15 @@ test('Auto delivery requires a preconfigured named profile and does not create o
   assert.match(block,/String\(p\.profile\|\|''\)\.trim\(\)/);
 });
 
-test('Stock compact preview shows email, password and profile details per-account, and removes the View action',()=>{
-  assert.match(source,/<th>EMAIL \/ ID<\/th>/);
-  assert.match(source,/<th>PASSWORD<\/th><td><code>\$\{esc\(st\.password\|\|'—'\)\}<\/code><\/td>/);
-  assert.match(source,/PROFILES ·/);
-  assert.match(source,/PIN: \$\{esc\(p\.pin\)\}/);
-  assert.doesNotMatch(source,/data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
+test('Stock compact preview shows email-first account rows, value-only password, right-aligned expiry and native profile disclosure',()=>{
+  assert.match(source, /function stockCompactPreviewHtml/);
+  assert.match(source, /<details><summary><table compact>/);
+  assert.match(source, /<b>\$\{esc\(st\.email\|\|'—'\)\}<\/b>/);
+  assert.match(source, /<code>\$\{esc\(st\.password\|\|'—'\)\}<\/code>/);
+  assert.match(source, /align="right"><b>\$\{esc\(expiry\)\}<\/b>/);
+  assert.match(source, /PROFILE INFORMATION/);
+  assert.match(source, /🔐 PIN/);
+  assert.match(source, /type="callback_data" style="success" data="stock_profile_status_noop">ACTIVE/);
+  assert.match(source, /type="disabled" style="success">✓ SOLD/);
+  assert.doesNotMatch(source, /data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
 });

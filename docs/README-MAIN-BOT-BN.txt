@@ -266,3 +266,7 @@ UPDATE v1.2.4 — Telegram Delivery & Reminder Corrections
 - Telegram Reseller Shop: four consistent buttons (Amazon Prime, 🍿 Crunchyroll, YouTube Premium, VPN).
 - Telegram YouTube Family Invite quantity selector (1–10), email list submission, Individual email request, Admin /youtube status controls, Hold status and reseller status history.
 - Validation: npm run check passed; npm test passed 176/176. Live Telegram/MongoDB deployment not performed.
+
+Delivery Preview Animation Test (v1.2.13)
+- Admin can send /deliverydemo in the Telegram bot chat to preview the five-stage delivery loading sequence and then the Reference-Based Delivery Preview.
+- This is a sample-only preview; it does not create an order, reserve stock, or change customer data.
