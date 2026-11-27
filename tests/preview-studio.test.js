@@ -185,10 +185,13 @@ test('Stock Profile form submissions refresh in place without adding navigation 
  assert.match(portal,/restore:\(\)=>renderAccount\(id\)/);
 });
 
-test('Stock Profile management cards use compact responsive layout',()=>{
- assert.match(portal,/\.profile-grid\{display:grid;grid-template-columns:repeat\(auto-fit,minmax\(min\(100%,250px\),1fr\)\)/);
- assert.match(portal,/class="card profile-card"/);
- assert.match(portal,/\.profile-card \.btn\{min-height:32px;padding:6px 9px;font-size:10px/);
+test('Stock Profile management uses compact rows with Name, PIN, Expiry, semantic status and inline actions',()=>{
+ assert.match(portal,/class="compact-profile-list"/);
+ assert.match(portal,/class="compact-profile-row"/);
+ assert.match(portal,/PIN: <code>/);
+ assert.match(portal,/Expiry: <b>/);
+ assert.match(portal,/customerProfileStatusHtml\(p\)/);
+ assert.match(portal,/data-delete-slot=/);
 });
 
 test('Mini App product selection opens a package/plan detail table with an Order Now action',()=>{
