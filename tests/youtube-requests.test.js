@@ -26,8 +26,8 @@ test('each email item can be replaced once and history retains both addresses', 
 });
 test('item status updates are validated and auditable', () => {
   const [item] = yt.createYoutubeItems({type:'individual',email:'x@example.com'});
-  yt.updateYoutubeItemStatus(item,'Invited','admin','2026-11-05T12:00:00Z');
-  assert.equal(item.status,'Invited'); assert.equal(item.history[0].by,'admin');
+  yt.updateYoutubeItemStatus(item,'Hold','admin','2026-11-05T12:00:00Z');
+  assert.equal(item.status,'Hold'); assert.equal(item.history[0].by,'admin');
   assert.throws(()=>yt.updateYoutubeItemStatus(item,'Unknown','admin'),/Invalid status/);
 });
 test('legacy migration converts family emails and strips stored password and OCR content', () => {

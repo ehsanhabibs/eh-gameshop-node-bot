@@ -38,8 +38,8 @@ test('Reseller pending text flow is cancelled by new menu/actions and commands',
  assert.match(reseller,/if \(input\.startsWith\('\/'\) \|\| menuLabels\.has\(input\)\) flows\.delete\(id\)/);
 });
 
-test('Regular inline keyboards omit unsupported style fields while Rich Message buttons retain native styles',()=>{
- assert.match(reseller,/styledCallback = \(text, callback_data, _style\) => \({ text, callback_data }\)/);
+test('Regular inline keyboards keep their requested Bot API 9.4 style while Rich Message buttons retain native styles',()=>{
+ assert.match(reseller,/styledCallback = \(text, callback_data, style\) => \({ text, callback_data, \.\.\.\(style \? { style } : {}\) }\)/);
  assert.match(reseller,/data="duepay:confirm:/);
  assert.match(reseller,/data="duepay:reject:/);
  assert.match(reseller,/style="success"/);

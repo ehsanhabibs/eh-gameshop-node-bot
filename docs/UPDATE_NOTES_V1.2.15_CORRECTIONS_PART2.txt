@@ -1,0 +1,39 @@
+EH GAMESHOP — CORRECTION UPDATE (package version stays 1.2.15, by instruction)
+
+1. YOUTUBE REQUESTS
+- All Requests screen: every request has SELECT / SELECTED (green). Selections stay when others are selected.
+- SELECT ALL (toggles to DESELECT ALL), CLEAR SELECTION, COMPLETE SELECTED (n), COMPLETE ALL (n), each with a confirmation screen.
+- Only the selected requests change; others stay as they are. One reseller notification per request.
+- Request-level selection and email-level selection use different saved keys, so they never affect each other.
+- Summary at the top: TOTAL, PENDING, COMPLETED, CANCELLED, ON HOLD (all requests, from saved data) + selected count. Same counts in the Mini App.
+- INVITED removed (status list, buttons, summaries, Mini App). Old Invited records become COMPLETED on load, history kept with a STATUS_MIGRATION entry.
+- REJECTED renamed CANCELLED (red); old records migrate. Old Invited buttons in old messages act as COMPLETED.
+- Parent request status now becomes Completed/Cancelled when every email is finished (was stuck at In Progress when mixed).
+- Reseller badges: COMPLETED green, CANCELLED red, HOLD = 🟠 default-style badge (no colour style available besides primary/success/danger/link).
+
+2. VIEW STOCK
+- Each account row = 2 rows x 2 columns: [email][status] / [password][expiry]. No field labels. Status lines up with email, expiry with password.
+- Long emails/passwords are shortened with "…" for display only; copy buttons copy the full value.
+- 📋 copy_text buttons beside email and password; COPY EMAIL / COPY PASSWORD row inside the expanded account.
+- ACTIVE = green, clickable, no business action. SOLD = green, disabled. EXPIRED = red, disabled.
+
+3. ACCOUNT DELETION (Mini App)
+- The "not archived" error does not exist in this ZIP. Deletion already works for any account (expired / not archived), keeps order history, writes an audit record.
+- The browser prompt/confirm dialogs were replaced by a pasteable input on the page next to the COPY CODE button.
+
+4. SAME-SCREEN PREVIEW CLEANUP (lib/screen-cleanup.js)
+- First message a menu button or command sends is remembered per chat + screen. Reopening the same screen deletes only that previous message.
+- /stock and the STOCK CENTER button are the same screen. /start and /cancel are never cleaned. Inline Back/Next still edit the same message.
+
+5. BUTTON COLOURS
+- styledCallback (index.js and reseller-system.js) now keeps the requested Bot API 9.4 style. Before, it dropped it, so every regular inline button looked the same.
+- Reseller Management: Add Reseller + Add by Telegram UID = green; Reseller List/Status, Assign Rate Tier, Special Product Rate = blue.
+- Stock Center fallback menu: Add Stock = green, others blue. Reports stay blue (information).
+- Reseller Directory (Rich Message): PREVIOUS/NEXT blue, BACK link style, ACTIVE/CREDIT ON green, INACTIVE/CREDIT OFF red. Detail heading has the person icon.
+- The old test that forbade styles on regular inline keyboards was updated to the new rule.
+
+6. REMINDERS: overlap guards added to the two scheduled reminder jobs. Existing per-day keys kept. Dates already go through fmtDate everywhere.
+
+7. ICONS: 👤 and ▶️ used (Unicode). /emojiid (admin) prints custom emoji IDs. No custom emoji is attached to any button yet.
+
+MIGRATION: none to run. Legacy YouTube statuses convert automatically on start. New saved key: data.screenPreviews, data.youtubeAdminSelections (request key "<adminId>:__requests__").

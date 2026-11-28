@@ -17,12 +17,12 @@ test('Account Update Notice passes the intended Telegram recipient into assignme
 test('Compact View Stock preview has independent Email and expand actions with an inline profile table', () => {
   assert.match(source, /function stockCompactPreviewHtml\(product,expandedStockId=null\)/);
   assert.match(source, /stock_account:\$\{esc\(st\.id\)\}/);
-  assert.match(source, /<details><summary><b>\$\{esc\(st\.email/);
+  assert.match(source, /<details><summary>\$\{head\}/);
   assert.match(source, /PROFILE/);
   assert.match(source, /stock_profile_reactivate:/);
   assert.ok(source.includes("const expiry=st.originalExpiry?fmtDate(st.originalExpiry):'—'"));
-  assert.match(source, /<b>\$\{esc\(st\.email\|\|'—'\)\}<\/b>/);
-  assert.match(source, /type="disabled" style="success">ACTIVE/);
+  assert.match(source, /<b>\$\{esc\(acctEmail\)\}<\/b>/);
+  assert.match(source, /style="success" data="stock_account_status_noop">ACTIVE/);
   assert.doesNotMatch(source, /type="callback_data" style="success" data="stock_account:\$\{esc\(st\.id\)\}">AVAILABLE/);
   assert.match(source, /STOCK CENTER · ACCOUNTS/);
 });
@@ -91,14 +91,14 @@ test('Auto delivery requires a preconfigured named profile and does not create o
 
 test('Stock compact preview shows email-first account rows, value-only password, right-aligned expiry and native profile disclosure',()=>{
   assert.match(source, /function stockCompactPreviewHtml/);
-  assert.match(source, /<details><summary><b>\$\{esc\(st\.email/);
-  assert.match(source, /<b>\$\{esc\(st\.email\|\|'—'\)\}<\/b>/);
-  assert.match(source, /<code>\$\{esc\(st\.password\|\|'—'\)\}<\/code>/);
-  assert.match(source, /<span align="right"><b>\$\{esc\(expiry\)\}/);
+  assert.match(source, /<details><summary>\$\{head\}/);
+  assert.match(source, /<b>\$\{esc\(acctEmail\)\}<\/b>/);
+  assert.match(source, /<code>\$\{esc\(acctPassword\)\}<\/code>/);
+  assert.match(source, /<td align="right"><b>\$\{esc\(expiry\)\}/);
   assert.match(source, /PROFILE/);
   assert.match(source, /<th>PIN<\/th>/);
-  assert.match(source, /type="disabled" style="success">ACTIVE/);
-  assert.match(source, /type="disabled" style="disabled">✓ SOLD/);
+  assert.match(source, /style="success" data="stock_account_status_noop">ACTIVE/);
+  assert.match(source, /type="disabled" style="success">✓ SOLD/);
   assert.doesNotMatch(source, /data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
 });
 

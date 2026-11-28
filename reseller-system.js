@@ -63,7 +63,7 @@ function tierPrice(reseller, product, basePrice) {
 
 function registerResellerSystem(bot, { data, saveData, isAdmin, renderPreview, sendPreviewMessage, getCatalog = () => [], placeOrder = null, submitYoutubeRequest = null }) {
   const { Markup } = require('telegraf');
-  const styledCallback = (text, callback_data, _style) => ({ text, callback_data });
+  const styledCallback = (text, callback_data, style) => ({ text, callback_data, ...(style ? { style } : {}) });
   const flows = new Map();
   const homeMessageRefs = bot.__ehResellerHomeMessageRefs ||= new Map();
   const persist = () => saveData();
@@ -137,7 +137,7 @@ function registerResellerSystem(bot, { data, saveData, isAdmin, renderPreview, s
     const status=r.active?{label:'ACTIVE',style:'success'}:{label:'INACTIVE',style:'danger'};
     const credit=r.creditAuthorized?{label:'CREDIT ON',style:'success'}:{label:'CREDIT OFF',style:'danger'};
     return `<table compact><tr><td align="center"><b>WELCOME</b></td></tr><tr><td align="center"><b>TO</b></td></tr></table><aside><b>✨ RESELLER NETWORK ✨</b></aside>
-<table bordered compact><caption>RESELLER INFORMATION</caption>
+<table bordered compact><caption>👤 RESELLER INFORMATION</caption>
 <tr><th>CUSTOMER NAME</th><td><b>${safe(r.name||c.name||id)}</b></td></tr>
 <tr><th>TELEGRAM USERNAME</th><td>${safe(username?'@'+username:'Not set')}</td></tr>
 <tr><th>RESELLER ID</th><td><code>R-${safe(id)}</code></td></tr>
@@ -236,7 +236,7 @@ function registerResellerSystem(bot, { data, saveData, isAdmin, renderPreview, s
     }
     if(!slice.length)html+=`<tr><td colspan="3">No resellers registered yet.</td></tr>`;
     html+='</table>';
-    const nav=[];if(page>0)nav.push(`<tg-button type="callback_data" data="rs:listpage:${page-1}">PREVIOUS</tg-button>`);if((page+1)*size<all.length)nav.push(`<tg-button type="callback_data" data="rs:listpage:${page+1}">NEXT</tg-button>`);
+    const nav=[];if(page>0)nav.push(`<tg-button type="callback_data" style="primary" data="rs:listpage:${page-1}">PREVIOUS</tg-button>`);if((page+1)*size<all.length)nav.push(`<tg-button type="callback_data" style="primary" data="rs:listpage:${page+1}">NEXT</tg-button>`);
     if(nav.length)html+=`<tg-button-row>${nav.join('')}</tg-button-row>`;
     return html;
   }
@@ -244,7 +244,7 @@ function registerResellerSystem(bot, { data, saveData, isAdmin, renderPreview, s
     const r=data.resellers?.[String(id)];if(!r)return '<h2>RESELLER NOT FOUND</h2>';
     const c=data.customers?.[String(id)]||{},active=Boolean(r.active),credit=Boolean(r.creditAuthorized),due=domain.dueForReseller(data,id);
     const date=v=>v?formatDhaka(v):'Not available';
-    return `<table compact><tr><td align="center"><b>WELCOME</b></td></tr><tr><td align="center"><b>TO</b></td></tr></table><aside><b>✨ RESELLER NETWORK ✨</b></aside><table bordered compact><caption>RESELLER INFORMATION</caption><tr><th>NAME</th><td><b>${safe(r.name||c.name||id)}</b></td></tr><tr><th>USERNAME</th><td>${safe(r.username||c.username?'@'+(r.username||c.username):'Not set')}</td></tr><tr><th>RESELLER ID</th><td><code>R-${safe(id)}</code></td></tr><tr><th>ACCOUNT STATUS</th><td><tg-button type="disabled" style="${active?'success':'danger'}">${active?'ACTIVE':'INACTIVE'}</tg-button></td></tr><tr><th>CREDIT STATUS</th><td><tg-button type="disabled" style="${credit?'success':'danger'}">${credit?'CREDIT ON':'CREDIT OFF'}</tg-button></td></tr><tr><th>TIER</th><td>${safe(r.tier||'Rate 1')}</td></tr><tr><th>OUTSTANDING DUE</th><td>${money(due)}</td></tr><tr><th>JOINED</th><td>${safe(date(r.createdAt))}</td></tr><tr><th>LAST SEEN</th><td>${safe(date(c.lastSeen||r.lastSeen||c.joinedAt))}</td></tr></table><h3>RESELLER PRIORITY PRIVILEGES</h3><blockquote><b>⚡ Priority Order Processing</b></blockquote><blockquote><b>⏱ 30-Minute Delivery Guarantee</b></blockquote><blockquote><b>🏷 Special Reseller Pricing</b></blockquote><blockquote><b>💳 Credit Purchase Facility</b></blockquote><blockquote><b>📊 Personal Order History &amp; Reports</b></blockquote><tg-button-row><tg-button type="callback_data" data="rs:listpage:${page}">← BACK TO DIRECTORY</tg-button></tg-button-row>`;
+    return `<table compact><tr><td align="center"><b>WELCOME</b></td></tr><tr><td align="center"><b>TO</b></td></tr></table><aside><b>✨ RESELLER NETWORK ✨</b></aside><table bordered compact><caption>RESELLER INFORMATION</caption><tr><th>NAME</th><td><b>${safe(r.name||c.name||id)}</b></td></tr><tr><th>USERNAME</th><td>${safe(r.username||c.username?'@'+(r.username||c.username):'Not set')}</td></tr><tr><th>RESELLER ID</th><td><code>R-${safe(id)}</code></td></tr><tr><th>ACCOUNT STATUS</th><td><tg-button type="disabled" style="${active?'success':'danger'}">${active?'ACTIVE':'INACTIVE'}</tg-button></td></tr><tr><th>CREDIT STATUS</th><td><tg-button type="disabled" style="${credit?'success':'danger'}">${credit?'CREDIT ON':'CREDIT OFF'}</tg-button></td></tr><tr><th>TIER</th><td>${safe(r.tier||'Rate 1')}</td></tr><tr><th>OUTSTANDING DUE</th><td>${money(due)}</td></tr><tr><th>JOINED</th><td>${safe(date(r.createdAt))}</td></tr><tr><th>LAST SEEN</th><td>${safe(date(c.lastSeen||r.lastSeen||c.joinedAt))}</td></tr></table><h3>RESELLER PRIORITY PRIVILEGES</h3><blockquote><b>⚡ Priority Order Processing</b></blockquote><blockquote><b>⏱ 30-Minute Delivery Guarantee</b></blockquote><blockquote><b>🏷 Special Reseller Pricing</b></blockquote><blockquote><b>💳 Credit Purchase Facility</b></blockquote><blockquote><b>📊 Personal Order History &amp; Reports</b></blockquote><tg-button-row><tg-button type="callback_data" style="link" data="rs:listpage:${page}">← BACK TO DIRECTORY</tg-button></tg-button-row>`;
   }
   async function sendRichDirectory(ctx,html,fallbackText) {
     try{return await ctx.telegram.callApi('sendRichMessage',{chat_id:ctx.chat.id,rich_message:{html}});}
@@ -311,8 +311,8 @@ function registerResellerSystem(bot, { data, saveData, isAdmin, renderPreview, s
     flows.delete(ctx.from.id);
     if (!await adminOnly(ctx)) return;
     return ctx.reply('🤝 <b>RESELLER MANAGEMENT</b>\nChoose a management action:', { parse_mode: 'HTML', ...Markup.inlineKeyboard([
-      [styledCallback('➕ Add Reseller', 'rs:add', 'primary')],
-      [styledCallback('🆔 Add by Telegram UID', 'rs:adduid', 'primary')],
+      [styledCallback('➕ Add Reseller', 'rs:add', 'success')],
+      [styledCallback('🆔 Add by Telegram UID', 'rs:adduid', 'success')],
       [styledCallback('📋 Reseller List / Status', 'rs:list', 'primary')],
       [styledCallback('🏷️ Assign Rate Tier', 'rs:assign', 'primary')],
       [styledCallback('💰 Special Product Rate', 'rs:special', 'primary')]

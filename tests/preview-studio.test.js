@@ -241,9 +241,9 @@ test('Primary Stock Center category list uses inline Email, Password, Expiry and
  const compact=index.slice(index.indexOf('function stockCompactPreviewHtml'),index.indexOf('async function editStockRichScreen'));
  assert.match(compact,/STOCK CENTER · ACCOUNTS/);
  assert.match(compact,/data="stock_account:\$\{esc\(st\.id\)\}"/);
- assert.match(compact,/\$\{esc\(st\.password\|\|'—'\)\}/);
+ assert.match(compact,/\$\{esc\(acctPassword\)\}/);
  assert.match(compact,/fmtDate\(st\.originalExpiry\)/);
- assert.match(compact,/<span align="right"><b>\$\{esc\(expiry\)\}/);
- assert.match(compact,/<details><summary><b>\$\{esc\(st\.email/);
+ assert.match(compact,/<td align="right"><b>\$\{esc\(expiry\)\}/);
+ assert.match(compact,/<details><summary>\$\{head\}/);
  assert.doesNotMatch(compact,/data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
 });

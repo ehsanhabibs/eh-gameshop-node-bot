@@ -11,7 +11,7 @@ test('YouTube admin request supports per-item selection and confirmed selected/a
   assert.match(source, /ytadm:bulk:do:/);
   assert.match(source, /COMPLETE SELECTED/);
   assert.match(source, /COMPLETE ALL/);
-  assert.match(source, /!\['Completed','Rejected'\]\.includes/);
+  assert.match(source, /youtubeAdminSelection\.eligible\(item\)/);
   assert.match(source, /updateYoutubeItemStatus\(item,'Completed',ctx\.from\.id\)/);
   assert.match(source, /notifyYoutubeRequestOwner\(parent\)/);
 });
@@ -20,7 +20,7 @@ test('YouTube reseller request status uses compact semantic status pills', () =>
   const source = fs.readFileSync(path.join(root, 'index.js'), 'utf8');
   assert.match(source, /function youtubeStatusPill\(status\)/);
   assert.ok(source.includes('style="success">✓ COMPLETED'));
-  assert.ok(source.includes('style="danger">✕ REJECTED'));
+  assert.ok(source.includes('style="danger">✕ CANCELLED'));
   assert.match(source, /🟠 HOLD/);
 });
 
@@ -49,6 +49,6 @@ test('new YouTube request notifications show item status summary before opening 
 
 test('Mini App YouTube request cards show total and per-status item counts', () => {
   const portal = fs.readFileSync(path.join(root, 'Public', 'portal.html'), 'utf8');
-  assert.match(portal, /const summary=\['Pending Review','Accepted','Processing','Invited','Hold','Completed','Rejected'\]/);
+  assert.match(portal, /const summary=\['Pending Review','Accepted','Processing','Hold','Completed','Cancelled'\]/);
   assert.match(portal, /\$\{\(x\.items\|\|\[\]\)\.length\} total/);
 });
