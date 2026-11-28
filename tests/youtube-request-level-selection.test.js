@@ -68,3 +68,17 @@ test('All Requests screen exposes request-level controls, counts and no Invited 
   assert.ok(!/INVITED/.test(src));
   assert.ok(!src.includes("['Invited','invited']"));
 });
+
+test('selection lists are compact: address + side mark only, normal colour when unselected, green when selected', () => {
+  const src = fs.readFileSync(path.join(root, 'index.js'), 'utf8');
+  for (const marker of ['data="ytadm:sel:', 'data="ytadm:rsel:']) {
+    const at = src.indexOf(marker);
+    const line = src.slice(Math.max(0, at - 260), at + 140);
+    assert.ok(line.includes(`\${chosen?'style="success" ':''}`), 'selected = green only: ' + marker);
+    assert.ok(line.includes("chosen?'✓':'☐'"), 'plain mark: ' + marker);
+    assert.ok(!/style="primary"[^>]*data="ytadm:r?sel:/.test(line), 'no blue select button');
+  }
+  assert.ok(!src.includes('<th>EMAIL</th><th>STATUS</th><th>SELECT</th><th>ACTION</th>'));
+  assert.ok(!src.includes("'secondary'"), 'secondary is not a valid Telegram button style');
+  assert.ok(src.includes('<td align="center">${mark}</td>'));
+});

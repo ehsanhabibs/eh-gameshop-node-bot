@@ -1,7 +1,8 @@
 EH GAMESHOP — CORRECTION UPDATE (package version stays 1.2.15, by instruction)
 
 1. YOUTUBE REQUESTS
-- All Requests screen: every request has SELECT / SELECTED (green). Selections stay when others are selected.
+- All Requests and the single-request screen are now ONE compact table: name/email on the left, a mark on the right (☐ normal colour, ✓ green when selected). No extra columns. Finished items show DONE / CANCELLED instead of a mark. Tapping a name/email opens it (single-email status update stays reachable).
+- Selections stay when others are selected.
 - SELECT ALL (toggles to DESELECT ALL), CLEAR SELECTION, COMPLETE SELECTED (n), COMPLETE ALL (n), each with a confirmation screen.
 - Only the selected requests change; others stay as they are. One reseller notification per request.
 - Request-level selection and email-level selection use different saved keys, so they never affect each other.
