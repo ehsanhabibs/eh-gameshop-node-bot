@@ -17,7 +17,7 @@ test('Account Update Notice passes the intended Telegram recipient into assignme
 test('Compact View Stock preview has independent Email and expand actions with an inline profile table', () => {
   assert.match(source, /function stockCompactPreviewHtml\(product,expandedStockId=null\)/);
   assert.match(source, /stock_account:\$\{esc\(st\.id\)\}/);
-  assert.match(source, /<details><summary>\$\{head\}/);
+  assert.match(source, /\$\{head\}<details><summary>PROFILES/);
   assert.match(source, /PROFILE/);
   assert.match(source, /stock_profile_reactivate:/);
   assert.ok(source.includes("const expiry=st.originalExpiry?fmtDate(st.originalExpiry):'—'"));
@@ -91,7 +91,7 @@ test('Auto delivery requires a preconfigured named profile and does not create o
 
 test('Stock compact preview shows email-first account rows, value-only password, right-aligned expiry and native profile disclosure',()=>{
   assert.match(source, /function stockCompactPreviewHtml/);
-  assert.match(source, /<details><summary>\$\{head\}/);
+  assert.match(source, /\$\{head\}<details><summary>PROFILES/);
   assert.match(source, /<b>\$\{esc\(acctEmail\)\}<\/b>/);
   assert.match(source, /<code>\$\{esc\(acctPassword\)\}<\/code>/);
   assert.match(source, /<td align="right"><b>\$\{esc\(expiry\)\}/);

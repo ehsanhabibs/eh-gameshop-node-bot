@@ -32,8 +32,10 @@ test('long email is truncated for display so it cannot push the right column, wh
   assert.ok(stockTrunc(long, 26).length <= 26);
   assert.ok(stockTrunc(long, 26).endsWith('…'));
   assert.equal(stockTrunc('short@x.com', 26), 'short@x.com');
-  assert.ok(index.includes('<tg-button type="copy_text" text="${esc(v)}">📋</tg-button>'));
-  assert.ok(index.includes('📋 COPY EMAIL') && index.includes('📋 COPY PASSWORD'));
+  assert.ok(index.includes('>COPY EMAIL</tg-button>') && index.includes('>COPY PASSWORD</tg-button>'));
+  const stockBlock = index.slice(index.indexOf('function stockCompactPreviewHtml'), index.indexOf('async function editStockRichScreen'));
+  assert.ok(!stockBlock.includes('📋'), 'no extra emoji: Telegram already draws its own copy icon on copy_text buttons');
+  assert.ok(!stockBlock.includes('const copyBtn='), 'no duplicate inline copy buttons beside email/password');
 });
 
 test('account status appearance: ACTIVE clickable no-op, SOLD green disabled, EXPIRED red', () => {
@@ -79,4 +81,11 @@ test('Reseller Management menu uses function-based colours: add = green, lists/a
   assert.ok(reseller.includes("styledCallback('🆔 Add by Telegram UID', 'rs:adduid', 'success')"));
   for (const cb of ['rs:list', 'rs:assign', 'rs:special']) assert.ok(new RegExp(`'${cb}', 'primary'\\)`).test(reseller), cb);
   assert.ok(index.includes('styledCallback("➕ Add Stock", "stock_add", "success")'));
+});
+
+test('account table sits OUTSIDE <summary> (Telegram renders a table inside <summary> as an empty row)', () => {
+  const start = index.indexOf('const acctEmail=stockTrunc');
+  const block = index.slice(start, start + 2200);
+  assert.match(block, /return `\$\{head\}<details><summary>PROFILES · \$\{assignedCount\}\/\$\{limit\}<\/summary>/);
+  assert.ok(!/<summary>\$\{head\}/.test(block));
 });

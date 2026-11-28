@@ -244,6 +244,6 @@ test('Primary Stock Center category list uses inline Email, Password, Expiry and
  assert.match(compact,/\$\{esc\(acctPassword\)\}/);
  assert.match(compact,/fmtDate\(st\.originalExpiry\)/);
  assert.match(compact,/<td align="right"><b>\$\{esc\(expiry\)\}/);
- assert.match(compact,/<details><summary>\$\{head\}/);
+ assert.match(compact,/\$\{head\}<details><summary>PROFILES/);
  assert.doesNotMatch(compact,/data="stock_account:\$\{esc\(st\.id\)\}">VIEW/);
 });

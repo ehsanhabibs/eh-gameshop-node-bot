@@ -12,9 +12,11 @@ EH GAMESHOP — CORRECTION UPDATE (package version stays 1.2.15, by instruction)
 - Reseller badges: COMPLETED green, CANCELLED red, HOLD = 🟠 default-style badge (no colour style available besides primary/success/danger/link).
 
 2. VIEW STOCK
-- Each account row = 2 rows x 2 columns: [email][status] / [password][expiry]. No field labels. Status lines up with email, expiry with password.
+- Every account shows, without expanding: [email][status] on line 1 and [password][expiry] on line 2, as a 2-row x 2-column table (no field labels).
+- The table is placed ABOVE the expandable section. Telegram draws a table placed inside <summary> as an empty row, so it cannot be used there.
+- Under it: PROFILES · sold/limit (tap to expand profiles, PIN, expiry, status, COPY EMAIL / COPY PASSWORD, OPEN ACCOUNT).
+- Copy buttons carry no extra emoji (Telegram draws its own copy icon). No inline copy buttons beside email/password.
 - Long emails/passwords are shortened with "…" for display only; copy buttons copy the full value.
-- 📋 copy_text buttons beside email and password; COPY EMAIL / COPY PASSWORD row inside the expanded account.
 - ACTIVE = green, clickable, no business action. SOLD = green, disabled. EXPIRED = red, disabled.
 
 3. ACCOUNT DELETION (Mini App)
